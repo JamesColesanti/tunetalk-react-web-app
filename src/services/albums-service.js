@@ -1,6 +1,6 @@
 import axios from 'axios';
-// const API_BASE = process.env.REACT_APP_API_BASE_A9;
-// const TUITS_API = `${API_BASE}/tuits`;
+const API_BASE = process.env.REACT_APP_API_BASE_A9;
+// const REVIEWS_API = `${API_BASE}/reviews`;
 
 export const findAlbums = async (searchTerm) => {
 
@@ -32,6 +32,8 @@ export const findAlbums = async (searchTerm) => {
     );
     return response.data.albums.items;
 
+    // might want to catch 400 errors at some point
+
     // await axios.get(url,
     //     {
     //         headers: {
@@ -60,4 +62,12 @@ export const findAlbums = async (searchTerm) => {
     // } catch (err) {
     //     return [];
     // }
+}
+
+export const findTop5Reviews = async () => {
+
+    const response = await axios.get(`${API_BASE}/topReviews`);
+    const reviews = response.data;
+    return reviews;
+
 }
