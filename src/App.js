@@ -9,23 +9,32 @@ import Navbar from "./components/navbar";
 import albumsReducer from "./albums/albums-reducer";
 import {configureStore} from '@reduxjs/toolkit';
 import {Provider} from "react-redux";
+import RegisterScreen from "./pages/register";
+import CurrentUserContext from "./redux/current-user-context";
+import usersReducer from "./users/users-reducer";
+import LoginScreen from "./pages/login";
 
 const store = configureStore({reducer: {
   albums: albumsReducer,
+  users: usersReducer,
 }});
 
 function App() {
   return (
     <Provider store={store}>
-      <BrowserRouter>
-        <Navbar/>
-        <Routes>
-          <Route path="/" exact element={<HomePage/>} />
-          <Route path={"/search"} element={<SearchResultsPage/>} />
-          <Route path={"/album/:albumId"} element={<AlbumDetailsPage/>} />
-          <Route path={"/profile"} element={<ProfilePage/>} />
-        </Routes>
-      </BrowserRouter>
+      <CurrentUserContext>
+        <BrowserRouter>
+          <Navbar/>
+          <Routes>
+            <Route path="/" exact element={<HomePage/>} />
+            <Route path={"/search"} element={<SearchResultsPage/>} />
+            <Route path={"/album/:albumId"} element={<AlbumDetailsPage/>} />
+            <Route path={"/profile"} element={<ProfilePage/>} />
+            <Route path={"/register"} element={<RegisterScreen/>} />
+            <Route path={"/login"} element={<LoginScreen/>} />
+          </Routes>
+        </BrowserRouter>
+      </CurrentUserContext>
     </Provider>
   );
 }
