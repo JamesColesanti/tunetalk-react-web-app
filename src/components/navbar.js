@@ -1,7 +1,5 @@
 import {NavLink} from "react-router-dom";
 import React from "react";
-import {useDispatch} from "react-redux";
-import {findAlbumsThunk} from "../services/albums-thunks";
 
 const Navbar = () => {
 

@@ -1,5 +1,5 @@
 import axios from 'axios';
-const API_BASE = process.env.REACT_APP_API_BASE_A9;
+const API_BASE = process.env.TUNETALK_SERVER_API_BASE;
 // const REVIEWS_API = `${API_BASE}/reviews`;
 
 export const findAlbums = async (searchTerm) => {
