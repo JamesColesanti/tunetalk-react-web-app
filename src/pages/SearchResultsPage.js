@@ -50,7 +50,7 @@ function SearchResultsPage () {
                 <div className={"col-4"}></div>
                 <div className={"pl-1 pr-1 col-8"}>
                     {
-                        albums.map(album => <SearchResult key={album.id} albumDetail={album}/> )
+                        albums.map(album => <SearchResult key={album.id} albumDetail={album}/>)
                     }
                 </div>
             </div>

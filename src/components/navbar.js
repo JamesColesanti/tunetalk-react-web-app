@@ -1,8 +1,10 @@
 import {NavLink} from "react-router-dom";
+import { useSelector } from "react-redux";
 import React from "react";
 
 const Navbar = () => {
-
+  const { currentUser } = useSelector((state) => state.users);
+  
   return (
       <>
         <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
@@ -19,12 +21,20 @@ const Navbar = () => {
                 <li className="nav-item">
                   <NavLink className="nav-link" to="/" end>Home</NavLink>
                 </li>
+                { currentUser ? 
                 <li className="nav-item">
                   <NavLink className="nav-link" to="/profile">Profile</NavLink>
-                </li>
-                <li className="nav-item">
-                  <NavLink className="nav-link" to="/">Sign In</NavLink>
-                </li>
+                </li> : 
+                <>
+                  <li className="nav-item">
+                      <NavLink className="nav-link" to="/login">Login</NavLink>
+                    </li>
+                    <li className="nav-item">
+                      <NavLink className="nav-link" to="/register">Register</NavLink>
+                  </li>
+                </>
+                }
+
               </ul>
               <form className="d-flex">
                   <button className="btn btn-secondary my-2 my-sm-0">
