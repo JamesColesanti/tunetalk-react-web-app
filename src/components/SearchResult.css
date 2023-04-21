@@ -1,0 +1,38 @@
+.search-result-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    background-color: rgba(29, 25, 31, .4);
+    height: 158px;
+    border: 2px solid whitesmoke;
+    border-radius: 4px;
+}
+
+.search-result-container:hover {
+    background-color: rgba(29, 25, 31, .6);
+}
+
+.album-cover {
+    width: 150px;
+    height: 150px;
+    border-radius: 4px;
+    margin: 4px;
+    padding: 0px;
+}
+
+.like-dislike-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.like-dislike-button {
+    height: 100%;
+    width: 60px;
+    background-color: rgba(29, 25, 31, .6);;
+    border: none;
+    border-right: 2px solid whitesmoke;
+}

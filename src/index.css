@@ -216,6 +216,16 @@ code {
   font-size: 14px;
 }
 
+.wd-font-size-32 {
+  font-size: 32px;
+}
+
+.wd-text-ellipses {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
 .wd-black-bold-text {
   color: black;
   font-weight: bold;

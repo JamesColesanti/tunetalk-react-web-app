@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {findAlbumsThunk} from "../services/albums-thunks";
-import AlbumItem from '../albums/album-item';
+import SearchResult from "../components/SearchResult";
 
 function SearchResultsPage () {
     const {albums, loading} = useSelector((state) => state.albums)
@@ -23,9 +23,14 @@ function SearchResultsPage () {
                 Loading...
                 </li>
             }
-            {
-                albums.map(album => <AlbumItem key={album.id} album={album}/> )
-            }
+            <div className={"row"} style={{margin: "auto"}}>
+                <div className={"col-4"}></div>
+                <div className={"pl-1 pr-1 col-8"}>
+                    {
+                        albums.map(album => <SearchResult key={album.id} albumDetail={album}/> )
+                    }
+                </div>
+            </div>
         </div>
     );
 }
