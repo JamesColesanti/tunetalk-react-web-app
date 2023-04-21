@@ -6,9 +6,17 @@ import SearchResultsPage from "./pages/SearchResultsPage";
 import AlbumDetailsPage from "./pages/AlbumDetailsPage";
 import ProfilePage from "./pages/ProfilePage";
 import Navbar from "./components/navbar";
+import albumsReducer from "./albums/albums-reducer";
+import {configureStore} from '@reduxjs/toolkit';
+import {Provider} from "react-redux";
+
+const store = configureStore({reducer: {
+  albums: albumsReducer,
+}});
 
 function App() {
   return (
+    <Provider store={store}>
       <BrowserRouter>
         <Navbar/>
         <Routes>
@@ -18,6 +26,7 @@ function App() {
           <Route path={"/profile"} element={<ProfilePage/>} />
         </Routes>
       </BrowserRouter>
+    </Provider>
   );
 }
 
