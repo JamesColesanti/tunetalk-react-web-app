@@ -21,7 +21,7 @@ function App() {
         <Navbar/>
         <Routes>
           <Route path="/" exact element={<HomePage/>} />
-          <Route path={"/search/*"} element={<SearchResultsPage/>} />
+          <Route path={"/search"} element={<SearchResultsPage/>} />
           <Route path={"/album/:albumId"} element={<AlbumDetailsPage/>} />
           <Route path={"/profile"} element={<ProfilePage/>} />
         </Routes>
