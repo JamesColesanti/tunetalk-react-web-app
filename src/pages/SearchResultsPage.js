@@ -40,8 +40,9 @@ function SearchResultsPage () {
                 }
                 }/>
             {
-                loading ?? <li className="list-group-item">
-                Loading...
+                loading ?? 
+                <li className="list-group-item">
+                    Loading...
                 </li>
 
             }
