@@ -1,31 +1,57 @@
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {findAlbumsThunk} from "../services/albums-thunks";
-import AlbumItem from '../albums/album-item';
+import SearchResult from "../components/SearchResult";
+import {useSearchParams} from "react-router-dom";
+import {debounce} from "lodash";
 
 function SearchResultsPage () {
     const {albums, loading} = useSelector((state) => state.albums)
     const dispatch = useDispatch();
-    let [searchTerm, setSearchTerm] = useState('');
+    const [searchParams, setSearchParams] = useSearchParams();
+    const searchTerm = searchParams.get("name");
+    const [userInput, setUserInput] = useState(searchTerm ?? '');
 
     useEffect(() => {
-        dispatch(findAlbumsThunk(searchTerm));
+        if (searchTerm) {
+            dispatch(findAlbumsThunk(searchTerm));
+        }
     }, [dispatch, searchTerm]);
+
+    const handleSearchTermChange = event => {
+        setSearchParams({
+            ...searchParams,
+            name: event.target.value
+        });
+    };
+
+    const debouncedChangeHandler = useCallback(
+        debounce(handleSearchTermChange, 150)
+        , []);
 
     return (
         <div className="SearchResultsPage">
             <input className="form-control me-sm-2 pb-2" type="search"
-                placeholder="Search"
-                onChange={(event) => setSearchTerm(event.target.value)}/>
+                placeholder="Search" value={userInput}
+                onChange={(event) => {
+                    setUserInput(event.target.value);
+                    debouncedChangeHandler(event);
+                }
+                }/>
             {
-                loading &&
-                <li className="list-group-item">
+                loading ?? <li className="list-group-item">
                 Loading...
                 </li>
+
             }
-            {
-                albums.map(album => <AlbumItem key={album.id} album={album}/> )
-            }
+            <div className={"row"} style={{margin: "auto"}}>
+                <div className={"col-4"}></div>
+                <div className={"pl-1 pr-1 col-8"}>
+                    {
+                        albums.map(album => <SearchResult key={album.id} albumDetail={album}/> )
+                    }
+                </div>
+            </div>
         </div>
     );
 }
