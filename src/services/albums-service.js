@@ -83,6 +83,7 @@ export const findAlbumById = async (albumId) => {
     const access_token = bearerTokenResponseData['data']['access_token'];
 
     const url = 'https://api.spotify.com/v1/albums/' + albumId;
+    const url2 = 'https://api.spotify.com/v1/albums/' + albumId + '/tracks';
 
     const response = await axios.get(url,
         {
@@ -91,5 +92,17 @@ export const findAlbumById = async (albumId) => {
             }
         }
     );
-    return response.data;
+
+    const response2 = await axios.get(url2,
+        {
+            headers: {
+                Authorization: "Bearer " + access_token,
+            }
+        }
+    );
+
+    return {
+        albumInfo: response.data,
+        tracks: response2.data.items,
+    }
 }
