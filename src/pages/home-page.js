@@ -7,8 +7,6 @@ import HomeReviewItem from "../reviews/home-review-item.js";
 import {useDispatch, useSelector} from "react-redux";
 import {findTop5ReviewsThunk} from "../services/reviews-thunks.js";
 import featuredAlbums from "../data/featured-albums.json"
-import AlbumReviewItem from "../reviews/album-review-item";
-import ProfileReviewItem from "../reviews/profile-review-item";
 
 function HomePage () {
   const {reviews, loading} = useSelector((state) => state.reviews)
@@ -32,7 +30,7 @@ function HomePage () {
               <div className="d-flex justify-content-center">
                 {
                   featuredAlbums.map(album =>
-                      <a className={"home-link"} href={`/album/${album.id}`}>
+                      <a className={"home-link"} href={`/details/${album.id}`}>
                         <img src={album.image} className={"home-image"}/>
                       </a>
                   )

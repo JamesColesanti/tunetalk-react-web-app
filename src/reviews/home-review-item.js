@@ -16,7 +16,7 @@ const HomeReviewItem = ({reviewDetail}) => {
   useEffect(() => {
     const getAlbum = async (albumId) => {
       const album = await findAlbumById(albumId);
-      setAlbum(album);
+      setAlbum(album.albumInfo);
     }
     const getUser = async (userId) => {
       const user = await findUserById(userId);
@@ -24,7 +24,7 @@ const HomeReviewItem = ({reviewDetail}) => {
     }
     getAlbum(reviewDetail.albumId);
     getUser(reviewDetail.userId);
-    console.log(user)
+    console.log(album)
   }, []);
   const releaseYearString = album.release_date ? album.release_date.substring(0, album.release_date.indexOf('-')) : '';
 

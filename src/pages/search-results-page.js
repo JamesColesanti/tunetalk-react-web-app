@@ -50,7 +50,7 @@ function SearchResultsPage () {
                 <div className={"pl-1 pr-1"}>
                     {
                         albums.map(album =>
-                            <Link className={"text-decoration-none"} to={`/album/${album.id}`}>
+                            <Link className={"text-decoration-none"} to={`/details/${album.id}`}>
                                 <SearchResult key={album.id} albumDetail={album}/>
                             </Link>
                         )
