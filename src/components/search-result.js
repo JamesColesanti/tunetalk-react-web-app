@@ -1,5 +1,5 @@
 import React from 'react';
-import './SearchResult.css'
+import './search-result.css'
 
 function SearchResult ({ albumDetail }) {
     const artistsString = albumDetail.artists.map(artist => artist.name).join(', ');

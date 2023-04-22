@@ -2,7 +2,7 @@
 import React, {useCallback, useEffect, useState} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {findAlbumsThunk} from "../services/albums-thunks";
-import SearchResult from "../components/SearchResult";
+import SearchResult from "../components/search-result";
 import {useSearchParams} from "react-router-dom";
 import {debounce} from "lodash";
 

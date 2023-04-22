@@ -1,10 +1,10 @@
 import "bootswatch/dist/quartz/bootstrap.min.css";
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './App.css';
-import HomePage from "./pages/HomePage";
-import SearchResultsPage from "./pages/SearchResultsPage";
-import AlbumDetailsPage from "./pages/AlbumDetailsPage";
-import ProfilePage from "./pages/ProfilePage";
+import HomePage from "./pages/home-page";
+import SearchResultsPage from "./pages/search-results-page";
+import AlbumDetailsPage from "./pages/album-details-page";
+import ProfilePage from "./pages/profile-page";
 import Navbar from "./components/navbar";
 import albumsReducer from "./albums/albums-reducer";
 import {configureStore} from '@reduxjs/toolkit';
