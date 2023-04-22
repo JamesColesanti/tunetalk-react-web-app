@@ -2,7 +2,7 @@
 import React, {useCallback, useEffect, useState} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {findAlbumsThunk} from "../services/albums-thunks";
-import SearchResult from "../components/SearchResult";
+import SearchResult from "../components/search-result";
 import {Link, useSearchParams} from "react-router-dom";
 import {debounce} from "lodash";
 
@@ -31,7 +31,7 @@ function SearchResultsPage () {
         , []);
 
     return (
-        <div className="SearchResultsPage">
+        <div className="m-1">
             <input className="form-control me-sm-2 pb-2" type="search"
                 placeholder="Search" value={userInput}
                 onChange={(event) => {
@@ -40,8 +40,9 @@ function SearchResultsPage () {
                 }
                 }/>
             {
-                loading ?? <li className="list-group-item">
-                Loading...
+                loading ??
+                <li className="list-group-item">
+                    Loading...
                 </li>
 
             }

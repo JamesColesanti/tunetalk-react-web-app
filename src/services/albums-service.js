@@ -1,8 +1,6 @@
 import axios from 'axios';
-const API_BASE = process.env.REACT_APP_API_BASE_A9;
+// const API_BASE = "http://localhost:4000/api";
 // const REVIEWS_API = `${API_BASE}/reviews`;
-
-
 
 export const findAlbums = async (searchTerm) => {
 
@@ -66,8 +64,7 @@ export const findAlbums = async (searchTerm) => {
     // }
 }
 
-export const findAlbumDetail = async (albumId) => {
-    //need to hit https://api.spotify.com/v1/albums/{id}
+export const findAlbumById = async (albumId) => {
 
     const bearerTokenResponseData = await axios.post(
         "https://accounts.spotify.com/api/token",
@@ -95,12 +92,4 @@ export const findAlbumDetail = async (albumId) => {
         }
     );
     return response.data;
-}
-
-export const findTop5Reviews = async () => {
-
-    const response = await axios.get(`${API_BASE}/topReviews`);
-    const reviews = response.data;
-    return reviews;
-
 }
