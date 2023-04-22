@@ -2,7 +2,7 @@
 import React, {useEffect} from 'react';
 import ReviewItem from "../reviews/review-item.js";
 import {useDispatch, useSelector} from "react-redux";
-import {findTop5ReviewsThunk} from "../services/albums-thunks";
+import {findTop5ReviewsThunk} from "../services/reviews-thunks.js";
 
 function HomePage () {
   const {reviews, loading} = useSelector((state) => state.reviews)

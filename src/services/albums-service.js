@@ -1,5 +1,5 @@
 import axios from 'axios';
-const API_BASE = "http://localhost:4000/api";
+// const API_BASE = "http://localhost:4000/api";
 // const REVIEWS_API = `${API_BASE}/reviews`;
 
 export const findAlbums = async (searchTerm) => {
@@ -82,7 +82,7 @@ export const findAlbumById = async (id) => {
 
   const access_token = bearerTokenResponseData['data']['access_token'];
 
-  const url = 'https://api.spotify.com/v1/' + 'albums/' + id;
+  const url = 'https://api.spotify.com/v1/albums/' + id;
 
   const response = await axios.get(url,
       {
@@ -92,17 +92,4 @@ export const findAlbumById = async (id) => {
       }
   );
   return response.data;
-}
-
-
-export const findTop5Reviews = async () => {
-    const response = await axios.get(`${API_BASE}/topReviews`);
-    const reviews = response.data;
-    return reviews;
-}
-
-export const findReviewsForAlbum = async (aid) => {
-    const response = await axios.get(`${API_BASE}/albums/${aid}/reviews`);
-    const reviews = response.data;
-    return reviews;
 }
