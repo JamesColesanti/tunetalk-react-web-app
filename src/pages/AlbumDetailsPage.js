@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import {useParams, useSearchParams} from "react-router-dom";
+import {useParams} from "react-router-dom";
 import {findAlbumDetailsThunk} from "../services/albums-thunks";
 import "./AlbumDetailsPage.css";
 

@@ -3,7 +3,7 @@ import React, {useCallback, useEffect, useState} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {findAlbumsThunk} from "../services/albums-thunks";
 import SearchResult from "../components/SearchResult";
-import {Link, useNavigate, useSearchParams} from "react-router-dom";
+import {Link, useSearchParams} from "react-router-dom";
 import {debounce} from "lodash";
 
 function SearchResultsPage () {
@@ -12,8 +12,6 @@ function SearchResultsPage () {
     const [searchParams, setSearchParams] = useSearchParams();
     const searchTerm = searchParams.get("name");
     const [userInput, setUserInput] = useState(searchTerm ?? '');
-
-    const navigate = useNavigate();
 
     useEffect(() => {
         if (searchTerm) {
