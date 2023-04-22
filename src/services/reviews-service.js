@@ -18,3 +18,9 @@ export const findReviewsByUser = async (uid) => {
     const reviews = response.data;
     return reviews;
 }
+
+export const createReview = async (newReview) => {
+    const aid = newReview.albumId;
+    const response = await axios.post(`${API_BASE}/albums/${aid}/reviews`, newReview);
+    return response.data;
+}
