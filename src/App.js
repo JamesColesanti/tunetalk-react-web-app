@@ -9,9 +9,10 @@ import Navbar from "./components/navbar";
 import albumsReducer from "./albums/albums-reducer";
 import {configureStore} from '@reduxjs/toolkit';
 import {Provider} from "react-redux";
+import reviewReducer from "./reviews/review-reducer";
 
 const store = configureStore({reducer: {
-  albums: albumsReducer,
+  albums: albumsReducer, reviews: reviewReducer
 }});
 
 function App() {
@@ -22,7 +23,7 @@ function App() {
         <Routes>
           <Route path="/" exact element={<HomePage/>} />
           <Route path={"/search"} element={<SearchResultsPage/>} />
-          <Route path={"/album/:albumId"} element={<AlbumDetailsPage/>} />
+          <Route path={"/details/:albumId"} element={<AlbumDetailsPage/>} />
           <Route path={"/profile"} element={<ProfilePage/>} />
         </Routes>
       </BrowserRouter>

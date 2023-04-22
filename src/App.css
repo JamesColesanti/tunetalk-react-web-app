@@ -36,3 +36,15 @@
     transform: rotate(360deg);
   }
 }
+
+.review-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+  align-items: flex-start;
+  background-color: rgba(29, 25, 31, .4);
+  border: 2px solid whitesmoke;
+  border-radius: 4px;
+  padding: 10px;
+  margin-bottom: .5rem;
+}

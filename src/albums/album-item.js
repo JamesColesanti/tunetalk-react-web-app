@@ -4,7 +4,7 @@ import React from "react";
 
 const AlbumItem = ({ album }) => {
     return(
-        <li className="list-group-item">
+        <li className="list-group-item mt-1">
              <div className="row">
                     <div class="col-1">
                         <img class="wd-album-image ps-2 pb-2"
@@ -12,9 +12,9 @@ const AlbumItem = ({ album }) => {
                     </div>
                     <div class="col-11 ps-5">
                         <div class="ps-1">
-                            <span className="fw-bolder wd-font-size-16">
+                            <a href= '/details/${album.id}' className="fw-bolder wd-font-size-16 text-decoration-none">
                                 {album.name}
-                            </span>
+                            </a>
                             <div>
                                 { album.artists[0].name }
                             </div>
