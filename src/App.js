@@ -15,12 +15,14 @@ import usersReducer from "./users/users-reducer";
 import LoginScreen from "./pages/login";
 import reviewReducer from "./reviews/review-reducer";
 import albumDetailsReducer from "./services/album-details-reducer";
+import reviewsForAlbumReducer from "./reviews/reviews-for-album-reducer";
 
 const store = configureStore({reducer: {
     albums: albumsReducer,
     users: usersReducer,
     reviews: reviewReducer,
     albumDetail: albumDetailsReducer,
+    reviewsForAlbum: reviewsForAlbumReducer
 }});
 
 function App() {
@@ -32,8 +34,9 @@ function App() {
           <Routes>
             <Route path="/" exact element={<HomePage/>} />
             <Route path={"/search"} element={<SearchResultsPage/>} />
-            <Route path={"/album/:albumId"} element={<AlbumDetailsPage/>} />
+            <Route path={"/details/:albumId"} element={<AlbumDetailsPage/>} />
             <Route path={"/profile"} element={<ProfilePage/>} />
+            <Route path={"/profile/:userId"} element={<ProfilePage/>} />
             <Route path={"/register"} element={<RegisterScreen/>} />
             <Route path={"/login"} element={<LoginScreen/>} />
           </Routes>

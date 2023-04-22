@@ -29,11 +29,6 @@ const AlbumReviewItem = ({reviewDetail}) => {
                 {
                     !reviewDetail.title && "No Title Given"
                 }
-                <small className={"m-1 text-muted"}>
-                  {
-                      !reviewDetail.date && "4/21/2023"
-                  }
-                </small>
                 <div>
                   <h6 className={"mt-1 text-muted"}>
                     <span> {user.username}

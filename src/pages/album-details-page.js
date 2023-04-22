@@ -4,14 +4,20 @@ import {useParams} from "react-router-dom";
 import {findAlbumDetailsThunk} from "../services/albums-thunks";
 import "./AlbumDetailsPage.css";
 import TracklistItem from "../components/tracklist-item";
+import {findReviewsForAlbumThunk} from "../services/reviews-thunks";
+import HomeReviewItem from "../reviews/home-review-item";
+import AlbumReviewItem from "../reviews/album-review-item";
+import CreateReview from "../components/create-review";
 
 function AlbumDetailsPage () {
     const {albumDetail, loading} = useSelector((state) => state.albumDetail)
+    const {reviewsForAlbum, rLoading} = useSelector((state) => state.reviewsForAlbum)
     const dispatch = useDispatch();
     const {albumId} = useParams();
 
     useEffect(() => {
         dispatch(findAlbumDetailsThunk(albumId));
+        dispatch(findReviewsForAlbumThunk(albumId));
     }, [dispatch, albumId]);
 
     if (loading || !albumDetail.albumInfo || !albumDetail.tracks) {
@@ -25,7 +31,7 @@ function AlbumDetailsPage () {
         releaseYearString + " • " +
         albumDetail.albumInfo.total_tracks + " track" + (albumDetail.albumInfo.total_tracks === 1 ? '' : 's');
 
-    console.log(albumDetail);
+    console.log(reviewsForAlbum);
 
     return (
         <div className="container">
@@ -41,9 +47,14 @@ function AlbumDetailsPage () {
                     {auxiliaryText ?? <span className="wd-text-ellipses">{auxiliaryText}</span>}
                 </div>
             </div>
-            <div className={"tracklist-container"}>
+            <div>
+                <div className={"text-muted d-flex justify-content-between"}>
+                    <h4>Recent Reviews</h4>
+                    <h4>{reviewsForAlbum.length} reviews</h4>
+                </div>
+                <CreateReview aid={albumId}/>
                 {
-                    albumDetail.tracks.map(track => <TracklistItem track={track} key={track.id} /> )
+                    reviewsForAlbum.length != 0 && reviewsForAlbum.map(review => <AlbumReviewItem key={review.id} reviewDetail={review}/> )
                 }
             </div>
         </div>

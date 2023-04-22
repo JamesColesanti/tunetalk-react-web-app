@@ -4,10 +4,6 @@
     align-items: center;
     margin: 0 auto;
     width: 100%;
-    background-color: rgba(29, 25, 31, .4);
-    border: 2px solid whitesmoke;
-    border-bottom: 0;
-    border-radius: 4px 4px 0px 0px;
 }
 
 .big-album-cover {
