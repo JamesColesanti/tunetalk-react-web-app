@@ -1,5 +1,5 @@
 import axios from 'axios';
-const API_BASE = process.env.TUNETALK_SERVER_API_BASE;
+const API_BASE = "http://localhost:4000/api";
 // const REVIEWS_API = `${API_BASE}/reviews`;
 
 export const findAlbums = async (searchTerm) => {

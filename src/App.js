@@ -16,7 +16,7 @@ import LoginScreen from "./pages/login";
 import reviewReducer from "./reviews/review-reducer";
 
 const store = configureStore({reducer: {
-  albums: albumsReducer, reviews: reviewReducer, users: usersReducer,
+  albums: albumsReducer, users: usersReducer, reviews: reviewReducer
 }});
 
 function App() {

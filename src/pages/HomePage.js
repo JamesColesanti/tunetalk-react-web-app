@@ -6,6 +6,7 @@ import {findTop5ReviewsThunk} from "../services/albums-thunks";
 
 function HomePage () {
   const {reviews, loading} = useSelector((state) => state.reviews)
+  const { currentUser } = useSelector((state) => state.users);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(findTop5ReviewsThunk());
