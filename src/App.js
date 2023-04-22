@@ -15,12 +15,14 @@ import usersReducer from "./users/users-reducer";
 import LoginScreen from "./pages/login";
 import reviewReducer from "./reviews/review-reducer";
 import reviewsForAlbumReducer from "./reviews/reviews-for-album-reducer";
+import albumDetailsReducer from "./services/album-details-reducer";
 
 const store = configureStore({reducer: {
   albums: albumsReducer, 
   users: usersReducer, 
   reviews: reviewReducer, 
   reviewsForAlbum: reviewsForAlbumReducer,
+  albumDetail: albumDetailsReducer,
 }});
 
 function App() {

@@ -48,3 +48,16 @@
   padding: 10px;
   margin-bottom: .5rem;
 }
+
+.home-link {
+  width: 25%;
+  margin: .5rem;
+}
+
+.home-image {
+  width: 100%;
+}
+
+.home-image:hover {
+  opacity: 60%;
+}
