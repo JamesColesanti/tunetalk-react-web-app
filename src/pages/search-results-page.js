@@ -47,11 +47,10 @@ function SearchResultsPage () {
 
             }
             <div className={"row"} style={{margin: "auto"}}>
-                <div className={"col-4"}></div>
-                <div className={"pl-1 pr-1 col-8"}>
+                <div className={"pl-1 pr-1"}>
                     {
                         albums.map(album =>
-                            <Link to={`/album/${album.id}`}>
+                            <Link className={"text-decoration-none"} to={`/album/${album.id}`}>
                                 <SearchResult key={album.id} albumDetail={album}/>
                             </Link>
                         )
