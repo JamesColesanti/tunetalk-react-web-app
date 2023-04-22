@@ -17,26 +17,34 @@ function LoginScreen() {
     navigate("/profile");
   };
   return (
-    <div>
-      <h1>Login</h1>
-      <div className="form-group">
-        <label>Username</label>
-        <input
-          type="text"
-          className="form-control"
-          value={user.username}
-          onChange={(e) => setUser({ ...user, username: e.target.value })}
-        />
-        <label>Password</label>
-        <input
-          type="password"
-          className="form-control"
-          value={user.password}
-          onChange={(e) => setUser({ ...user, password: e.target.value })}
-        />
-        <button onClick={login} className="btn btn-primary">
-          Login
-        </button>
+    <div className={"m-2 d-flex flex-column align-items-center"}>
+      <div>
+        <h1>Login</h1>
+      </div>
+      <div className="form-group m-1">
+        <div className={"m-1"}>
+          <label>Username</label>
+          <input
+              type="text"
+              className="form-control w-100"
+              value={user.username}
+              onChange={(e) => setUser({ ...user, username: e.target.value })}
+          />
+        </div>
+        <div className={"m-1"}>
+          <label>Password</label>
+          <input
+              type="password"
+              className="form-control w-100"
+              value={user.password}
+              onChange={(e) => setUser({ ...user, password: e.target.value })}
+          />
+        </div>
+        <div className={"m-2 d-flex justify-content-center"}>
+          <button onClick={login} className="btn btn-primary">
+            Login
+          </button>
+        </div>
       </div>
     </div>
   );
