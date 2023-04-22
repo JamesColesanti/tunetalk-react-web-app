@@ -13,10 +13,10 @@ import RegisterScreen from "./pages/register";
 import CurrentUserContext from "./redux/current-user-context";
 import usersReducer from "./users/users-reducer";
 import LoginScreen from "./pages/login";
+import reviewReducer from "./reviews/review-reducer";
 
 const store = configureStore({reducer: {
-  albums: albumsReducer,
-  users: usersReducer,
+  albums: albumsReducer, users: usersReducer, reviews: reviewReducer
 }});
 
 function App() {

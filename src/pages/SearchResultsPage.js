@@ -31,7 +31,7 @@ function SearchResultsPage () {
         , []);
 
     return (
-        <div className="SearchResultsPage">
+        <div className="m-1">
             <input className="form-control me-sm-2 pb-2" type="search"
                 placeholder="Search" value={userInput}
                 onChange={(event) => {

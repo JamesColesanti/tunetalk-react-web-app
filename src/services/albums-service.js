@@ -1,5 +1,5 @@
 import axios from 'axios';
-const API_BASE = process.env.TUNETALK_SERVER_API_BASE;
+const API_BASE = "http://localhost:4000/api";
 // const REVIEWS_API = `${API_BASE}/reviews`;
 
 export const findAlbums = async (searchTerm) => {
@@ -63,6 +63,37 @@ export const findAlbums = async (searchTerm) => {
     //     return [];
     // }
 }
+
+export const findAlbumById = async (id) => {
+
+  const bearerTokenResponseData = await axios.post(
+      "https://accounts.spotify.com/api/token",
+      {
+        grant_type: 'client_credentials',
+        client_id: '428147ec52be42138c11e229e16d6c0b',
+        client_secret: '1b8d85e6cb1c4aa0bc47458d581dc79d',
+      },
+      {
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+      }
+  );
+
+  const access_token = bearerTokenResponseData['data']['access_token'];
+
+  const url = 'https://api.spotify.com/v1/' + 'albums/' + id;
+
+  const response = await axios.get(url,
+      {
+        headers: {
+          Authorization: "Bearer " + access_token,
+        },
+      }
+  );
+  return response.data;
+}
+
 
 export const findTop5Reviews = async () => {
     const response = await axios.get(`${API_BASE}/topReviews`);
