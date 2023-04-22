@@ -3,7 +3,7 @@ import React, {useCallback, useEffect, useState} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {findAlbumsThunk} from "../services/albums-thunks";
 import SearchResult from "../components/search-result";
-import {useSearchParams} from "react-router-dom";
+import {Link, useSearchParams} from "react-router-dom";
 import {debounce} from "lodash";
 
 function SearchResultsPage () {
@@ -40,7 +40,7 @@ function SearchResultsPage () {
                 }
                 }/>
             {
-                loading ?? 
+                loading ??
                 <li className="list-group-item">
                     Loading...
                 </li>
@@ -50,7 +50,11 @@ function SearchResultsPage () {
                 <div className={"col-4"}></div>
                 <div className={"pl-1 pr-1 col-8"}>
                     {
-                        albums.map(album => <SearchResult key={album.id} albumDetail={album}/>)
+                        albums.map(album =>
+                            <Link to={`/album/${album.id}`}>
+                                <SearchResult key={album.id} albumDetail={album}/>
+                            </Link>
+                        )
                     }
                 </div>
             </div>
