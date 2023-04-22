@@ -3,34 +3,49 @@ import {useDispatch, useSelector} from "react-redux";
 import {useParams} from "react-router-dom";
 import {findAlbumDetailsThunk} from "../services/albums-thunks";
 import "./AlbumDetailsPage.css";
+import TracklistItem from "../components/tracklist-item";
 
 function AlbumDetailsPage () {
     const {albumDetail, loading} = useSelector((state) => state.albumDetail)
     const dispatch = useDispatch();
     const {albumId} = useParams();
 
-    const artistsString = albumDetail.artists ? albumDetail.artists.map(artist => artist.name).join(', ') : '';
-
     useEffect(() => {
         dispatch(findAlbumDetailsThunk(albumId));
     }, [dispatch, albumId]);
 
-    console.log(albumDetail);
-
-    if (loading || !albumDetail.images) {
+    if (loading || !albumDetail.albumInfo || !albumDetail.tracks) {
         return <div>Loading...</div>
     }
+
+    const artistsString = albumDetail.albumInfo ? albumDetail.albumInfo.artists.map(artist => artist.name).join(', ') : '';
+    const releaseYearString = albumDetail.albumInfo ? albumDetail.albumInfo.release_date.substring(0, albumDetail.albumInfo.release_date.indexOf('-')) : '';
+    const typeString = albumDetail.albumInfo ? albumDetail.albumInfo.type : '';
+    const auxiliaryText = (typeString ? typeString.charAt(0).toUpperCase() + typeString.slice(1) + " • " : '') +
+        releaseYearString + " • " +
+        albumDetail.albumInfo.total_tracks + " track" + (albumDetail.albumInfo.total_tracks === 1 ? '' : 's');
+
+    console.log(albumDetail);
+
     return (
         <div className="container">
-            <div className="album-details-container">
-                <img className="album-cover" width="300" height="300" src={albumDetail.images[0].url} alt={albumDetail.name + ' Cover'}/>
+            <div className="mt-2 album-details-container flex-column flex-md-row p-3">
+                <img className="big-album-cover me-md-3" width="300" height="300" src={albumDetail.albumInfo.images[0].url} alt={albumDetail.albumInfo.name + ' Cover'}/>
+                <div className={"flex-fill"}>
+                    <span className="wd-bold-text wd-font-size-32 wd-text-ellipses">
+                        {albumDetail.albumInfo.name}
+                    </span><br/>
+                    <span>
+                        {artistsString}
+                    </span><br/><br/>
+                    {auxiliaryText ?? <span className="wd-text-ellipses">{auxiliaryText}</span>}
+                </div>
             </div>
-            <span className="wd-bold-text wd-font-size-32 wd-text-ellipses">
-                    {albumDetail.name}
-                </span><br/>
-            <span>
-                    {artistsString}
-                </span><br/><br/>
+            <div className={"tracklist-container"}>
+                {
+                    albumDetail.tracks.map(track => <TracklistItem track={track} key={track.id} /> )
+                }
+            </div>
         </div>
     );
 }
