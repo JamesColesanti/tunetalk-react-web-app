@@ -5,6 +5,10 @@ export const findAlbumsThunk = createAsyncThunk('albums/findAlbums',
     async (searchTerm) => await service.findAlbums(searchTerm)
 )
 
+export const findAlbumDetailsThunk = createAsyncThunk('albums/findAlbumDetails',
+    async (albumId) => await service.findAlbumDetail(albumId)
+)
+
 export const findTop5ReviewsThunk = createAsyncThunk('reviews/findTop5Reviews', 
     async () => await service.findTop5Reviews()
 )

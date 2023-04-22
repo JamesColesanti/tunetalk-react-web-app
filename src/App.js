@@ -9,9 +9,11 @@ import Navbar from "./components/navbar";
 import albumsReducer from "./albums/albums-reducer";
 import {configureStore} from '@reduxjs/toolkit';
 import {Provider} from "react-redux";
+import albumDetailsReducer from "./services/album-details-reducer";
 
 const store = configureStore({reducer: {
-  albums: albumsReducer,
+    albums: albumsReducer,
+    albumDetail: albumDetailsReducer,
 }});
 
 function App() {
