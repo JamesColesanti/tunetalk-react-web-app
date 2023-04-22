@@ -40,8 +40,9 @@ function SearchResultsPage () {
                 }
                 }/>
             {
-                loading ?? <li className="list-group-item">
-                Loading...
+                loading ?? 
+                <li className="list-group-item">
+                    Loading...
                 </li>
 
             }
@@ -49,7 +50,7 @@ function SearchResultsPage () {
                 <div className={"col-4"}></div>
                 <div className={"pl-1 pr-1 col-8"}>
                     {
-                        albums.map(album => <SearchResult key={album.id} albumDetail={album}/> )
+                        albums.map(album => <SearchResult key={album.id} albumDetail={album}/>)
                     }
                 </div>
             </div>
