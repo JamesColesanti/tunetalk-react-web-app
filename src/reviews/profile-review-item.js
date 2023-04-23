@@ -14,10 +14,14 @@ const ProfileReviewItem = ({reviewDetail}) => {
   useEffect(() => {
     const getAlbum = async (albumId) => {
       const album = await findAlbumById(albumId);
-      setAlbum(album);
+      setAlbum(album.albumInfo);
     }
     getAlbum(reviewDetail.albumId);
-  }, []);
+  }, [reviewDetail]);
+
+  if (!album) {
+    return <></>;
+  }
 
   return (
       <>
@@ -31,7 +35,7 @@ const ProfileReviewItem = ({reviewDetail}) => {
             <div>
               <h4>
                 {
-                    !reviewDetail.title && "No Title Given"
+                    album.name
                 }
                 <small className={"m-1 text-muted"}>
                   {

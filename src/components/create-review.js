@@ -4,7 +4,6 @@ import { createReviewThunk } from "../services/reviews-thunks";
 import {useDispatch, useSelector} from "react-redux";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {findAlbumById} from "../services/albums-service";
 
 const CreateReview = (aid) => {
   let [reviewContent, setReviewContent] = useState('');
