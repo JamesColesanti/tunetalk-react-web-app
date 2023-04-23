@@ -1,7 +1,19 @@
-import React from "react";
+import React, {useEffect} from "react";
 import featuredAlbums from "../data/featured-albums.json";
+import HomeReviewItem from "../reviews/home-review-item";
+import {useDispatch, useSelector} from "react-redux";
+import {
+  findLikedReviewsThunk,
+  findTop5ReviewsThunk
+} from "../services/reviews-thunks";
 
 const HomeHeaderAnonymous = () => {
+  const {reviews, loading} = useSelector((state) => state.reviews)
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(findTop5ReviewsThunk());
+  }, []);
+
 
   return (
       <>
@@ -26,6 +38,20 @@ const HomeHeaderAnonymous = () => {
                 )
               }
             </div>
+          </div>
+          <div className="col-1"></div>
+        </div>
+        <div className="row">
+          <div className="col-1"></div>
+          <div className="col-10">
+            <h3 className={"text-muted d-flex justify-content-right"}>Recent Reviews</h3>
+            <hr></hr>
+            {
+                loading && <p>Loading...</p>
+            }
+            {
+              reviews.map(review => <HomeReviewItem key={review._id} reviewDetail={review}/> )
+            }
           </div>
           <div className="col-1"></div>
         </div>

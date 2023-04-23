@@ -6,7 +6,6 @@ import ProfileReviewItem from "../reviews/profile-review-item";
 import { findReviewsByUserThunk } from "../services/reviews-thunks";
 
 function UserProfilePage() {
-  const { currentUser } = useSelector((state) => state.currentUser);
   const { user, uLoading } = useSelector((state) => state.user);
   const { reviewsForUser, rLoading } = useSelector((state) => state.reviewsForUser);
   const dispatch = useDispatch();
