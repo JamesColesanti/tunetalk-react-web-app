@@ -20,10 +20,12 @@ function ProfilePage() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(findReviewsByUserThunk(currentUser._id));
+    if (currentUser) {
+      dispatch(findReviewsByUserThunk(currentUser._id));
+    }
   }, [dispatch]);
 
-  console.log(currentUser);
+  //console.log(currentUser);
 
 
 
@@ -36,41 +38,41 @@ function ProfilePage() {
     dispatch(logoutThunk());
     navigate("/login");
   };
-  console.log(currentUser);
 
 
   if (!currentUser || !reviewsForUser) {
     return <div>Loading...</div>;
   }
 
-  console.log(reviewsForUser);
-  console.log(reviewsForUser && reviewsForUser.length > 0)
-
   function handleClose() {
     setEditModalIsOpen(false);
   }
 
   return (
-    <div className={"container mt-4"}>
-      <span className={"wd-bold-text wd-font-size-32"}>{currentUser.firstName + ' ' + currentUser.lastName}</span>
-      <button type="button" onClick={() => {setEditModalIsOpen(true)}} className={"wd-btn-transparent mt-1 float-end"}>Edit Profile</button>
-      <br/>
-      <span>{'@' + currentUser.username}</span><br/>
-      { reviewsForUser && <span>{reviewsForUser.length} reviews</span> }
-      {
-          (reviewsForUser && reviewsForUser.length > 0) ? <div className={"mt-4"}>
-            <span className={"text-muted"}>Reviews</span>
-            <div className={"mt-2"}>
-                {
-                    !loading && reviewsForUser.map(review => <ProfileReviewItem key={review._id} reviewDetail={review}/>)
-                }
-            </div>
-          </div> :
-          <div>
-            <span className={"text-muted"}>No reviews yet</span>
+      <div className={"container mt-4"}>
+        <div className={"d-flex justify-content-between"}>
+          <div className={"d-flex flex-column"}>
+            <h2>
+              {currentUser.firstName + ' ' + currentUser.lastName}
+            </h2>
+            <span>{'@' + currentUser.username}</span>
+            <span>{reviewsForUser.length} reviews</span>
+            <button type="button" onClick={() => {logout()}} className={"btn btn-primary w-75 mt-2"}>Log out</button>
           </div>
-      }
-    </div>
+          <div className={"d-flex flex-column"}>
+            <button type="button" onClick={() => {setEditModalIsOpen(true)}} className={"wd-btn-transparent"}>Edit Profile</button>
+          </div>
+        </div>
+        <div className={"mt-4"}>
+          <div className={"text-muted d-flex justify-content-between"}>
+            <h4>Your recent reviews</h4>
+          </div>
+          {
+              !loading && reviewsForUser.map(review => <ProfileReviewItem key={review._id} reviewDetail={review}/> )
+          }
+        </div>
+        <EditProfileModal editModalIsOpen={editModalIsOpen} close={handleClose}/>
+      </div>
   );
 }
 

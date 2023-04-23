@@ -1,21 +1,34 @@
 import React, {useEffect, useState} from 'react';
 import {Button, Modal} from "react-bootstrap";
+import {useDispatch, useSelector} from "react-redux";
+import {updateUserThunk} from "../services/users-thunks";
 
-const EditProfileModal = ({profile, editModalIsOpen, close, updateProfile}) => {
-    const [user, setUser] = useState(null);
+const EditProfileModal = ({editModalIsOpen, close}) => {
+    const { currentUser } = useSelector((state) => state.currentUser);
+    const [user, setUser] = useState(currentUser);
+    const dispatch = useDispatch()
+
     useEffect(() => {
-        setUser(profile);
-    }, [profile]);
+        setUser(currentUser);
+    }, [currentUser]);
+
+    const editUserHandler = () => {
+        console.log(user)
+        dispatch(updateUserThunk(user));
+        console.log(currentUser)
+    }
+
     if (!user) {
         return <div></div>;
     }
+
     return (
         <Modal show={editModalIsOpen} onHide={() => close()}>
             <Modal.Header closeButton>
                 <Modal.Title>Edit Profile</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                <div className="form-group w-50">
+                <div className="form-group w-100">
                     <div className={"m-1"}>
                         <label>Username</label>
                         <input
@@ -68,7 +81,7 @@ const EditProfileModal = ({profile, editModalIsOpen, close, updateProfile}) => {
                     Close
                 </Button>
                 <Button variant="primary" onClick={() => {
-                    updateProfile(user);
+                    editUserHandler();
                     close();
                 }}>
                     Save Changes
