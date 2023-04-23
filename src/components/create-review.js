@@ -2,6 +2,9 @@
 import React, {useState} from "react";
 import { createReviewThunk } from "../services/reviews-thunks";
 import {useDispatch, useSelector} from "react-redux";
+import { faStar } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {findAlbumById} from "../services/albums-service";
 
 const CreateReview = (aid) => {
   let [reviewContent, setReviewContent] = useState('');
@@ -20,16 +23,26 @@ const CreateReview = (aid) => {
     }
     dispatch(createReviewThunk(newReview));
   }
+  const stars = [1,2,3,4,5]
+
+  function getColor(num) {
+    return num <= reviewStars;
+  }
+
   return (
       <div className="row">
-        {/* <div className="col-auto">
-                <img src="/images/nasa.png" width={60}/>
-            </div> */}
         <div className="col-12 mb-2">
                 <textarea value={reviewContent} placeholder="Leave a review"
                           className="form-control"
                           onChange={(event) => setReviewContent(event.target.value)}>
                 </textarea>
+          <div className={"mt-1"}>
+            {
+              stars.map(star =>
+                  <FontAwesomeIcon icon={faStar} className={getColor(star) ? "text-warning": ""} onClick={_ => setReviewStars(star)}/>
+              )
+            }
+          </div>
           <div>
             <button className="rounded-pill btn btn-primary float-end mt-2 ps-3 pe-3 fw-bold"
                     onClick={createReviewClickHandler}>

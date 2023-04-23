@@ -45,7 +45,7 @@ function HomePage () {
               <h3 className={"text-muted d-flex justify-content-right"}>Recent Reviews</h3>
               <hr></hr>
               {
-                  reviews.length != 0 && reviews.map(review => <HomeReviewItem key={review.id} reviewDetail={review}/> )
+                  reviews.length != 0 && reviews.map(review => <HomeReviewItem key={review._id} reviewDetail={review}/> )
               }
             </div>
             <div className="col-1"></div>

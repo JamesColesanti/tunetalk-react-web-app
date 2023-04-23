@@ -10,6 +10,7 @@ import CreateReview from "../components/create-review";
 function AlbumDetailsPage () {
     const {albumDetail, loading} = useSelector((state) => state.albumDetail)
     const {reviewsForAlbum, rLoading} = useSelector((state) => state.reviewsForAlbum)
+    const {currentUser} = useSelector((state) => state.users)
     const dispatch = useDispatch();
     const {albumId} = useParams();
 
@@ -29,7 +30,6 @@ function AlbumDetailsPage () {
         releaseYearString + " • " +
         albumDetail.albumInfo.total_tracks + " track" + (albumDetail.albumInfo.total_tracks === 1 ? '' : 's');
 
-    console.log(reviewsForAlbum);
 
     return (
         <div className="container">
@@ -50,7 +50,9 @@ function AlbumDetailsPage () {
                     <h4>Recent Reviews</h4>
                     <h4>{reviewsForAlbum.length} reviews</h4>
                 </div>
-                <CreateReview aid={albumId}/>
+                {
+                    currentUser && <CreateReview aid={albumId}/>
+                }
                 {
                     reviewsForAlbum.length != 0 && reviewsForAlbum.map(review => <AlbumReviewItem key={review.id} reviewDetail={review}/> )
                 }
