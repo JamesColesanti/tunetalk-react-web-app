@@ -5,6 +5,7 @@ import {
   registerThunk,
   logoutThunk,
 } from "../services/users-thunks";
+
 const initialState = {
   currentUser: null,
 };
