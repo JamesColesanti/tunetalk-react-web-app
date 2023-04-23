@@ -4,12 +4,16 @@ import React, {useEffect, useState} from "react";
 import { faStar, faHeart } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {findAlbumById} from "../services/albums-service";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
+import {updateReviewThunk} from "../services/reviews-thunks";
+import {useNavigate} from "react-router-dom";
 
 const ProfileReviewItem = ({reviewDetail}) => {
   const [album, setAlbum] = useState(false);
-  const { currentUser } = useSelector((state) => state.users);
+  const { currentUser } = useSelector((state) => state.currentUser);
   const stars = [...Array(reviewDetail.stars).keys()]
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   useEffect(() => {
     const getAlbum = async (albumId) => {
@@ -22,6 +26,28 @@ const ProfileReviewItem = ({reviewDetail}) => {
   if (!album) {
     return <></>;
   }
+  const releaseYearString = album.release_date ? album.release_date.substring(0, album.release_date.indexOf('-')) : '';
+
+  const likePostHandler = (id) => {
+    if (currentUser) {
+      let liked;
+      let likes;
+      if (reviewDetail.liked) {
+        liked = false
+        likes = reviewDetail.likes - 1
+      } else {
+        liked = true
+        likes = reviewDetail.likes + 1
+      }
+      dispatch(updateReviewThunk({
+        _id: id,
+        likes: likes,
+        liked: liked}))
+    } else {
+      navigate("/login")
+    }
+  }
+
 
   return (
       <>
@@ -34,14 +60,10 @@ const ProfileReviewItem = ({reviewDetail}) => {
           <div className={"col-10 m-1"}>
             <div>
               <h4>
-                {
-                    album.name
-                }
-                <small className={"m-1 text-muted"}>
-                  {
-                      !reviewDetail.date && "4/21/2023"
-                  }
-                </small>
+                <a className="review-link" href={`/details/${reviewDetail.albumId}`}>
+                  {album.name}
+                </a>
+                <small className={"m-1 text-muted"}> {releaseYearString}</small>
                 <div>
                   <h6 className={"mt-1 text-muted"}>
                       <span className={"text-warning"}>
@@ -55,7 +77,9 @@ const ProfileReviewItem = ({reviewDetail}) => {
             </div>
             <p>{reviewDetail.content}</p>
             <p><FontAwesomeIcon
-                className={currentUser && reviewDetail.liked ? "text-primary" : ""} icon={faHeart}/> {reviewDetail.likes} likes</p>
+                className={currentUser && reviewDetail.liked ? "text-primary" : ""}
+                onClick={() => {likePostHandler(reviewDetail._id)}}
+                icon={faHeart}/> {reviewDetail.likes} likes</p>
           </div>
         </div>
       </>

@@ -1,66 +1,50 @@
 import React, { useState, useEffect } from "react";
 import * as userService from "../services/users-service";
 import { useNavigate, useParams } from "react-router-dom";
-import { profileThunk, logoutThunk } from "../services/users-thunks";
+import {
+  profileThunk,
+  logoutThunk,
+  findUserByIdThunk
+} from "../services/users-thunks";
 import { useDispatch, useSelector } from "react-redux";
-import {findReviewsByUser} from "../services/reviews-service";
 import ProfileReviewItem from "../reviews/profile-review-item";
 import EditProfileModal from "../components/edit-profile-modal";
+import {findReviewsByUserThunk} from "../services/reviews-thunks";
 
 function ProfilePage() {
-  const { uid } = useParams();
-  const { currentUser } = useSelector((state) => state.users);
-  const [profile, setProfile] = useState({});
-  const [reviews, setReviews] = useState([]);
+  const { currentUser } = useSelector((state) => state.currentUser);
+  //const [profile, setProfile] = useState({});
+  const { reviewsForUser, loading } = useSelector((state) => state.reviewsForUser);
+  const [editModalIsOpen, setEditModalIsOpen] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const [editModalIsOpen, setEditModalIsOpen] = useState(false);
-  const getProfile = async () => {
-    // const profile = await userService.profile();
-    const action = await dispatch(profileThunk());
-    setProfile(action.payload);
-  };
-  const getUserById = async () => {
-    let user;
-    try {
-      user = await userService.findUserById(uid);
-    }
-    catch (e) {
-        navigate("/");
-    }
-    setProfile(user);
-  };
+  useEffect(() => {
+    dispatch(findReviewsByUserThunk(currentUser._id));
+  }, [dispatch]);
 
-  const updateProfile = async (newProfile) => {
-    await userService.updateUser(newProfile);
-    setProfile(newProfile);
-  }
+  console.log(currentUser);
+
+
+
+  //const updateProfile = async (newProfile) => {
+   // await userService.updateUser(newProfile);
+    //setProfile(newProfile);
+ // }
 
   const logout = async () => {
     dispatch(logoutThunk());
     navigate("/login");
   };
-  useEffect(() => {
-    if (uid) {
-      getUserById();
-    } else {
-      getProfile();
-    }
-  }, [uid]);
+  console.log(currentUser);
 
-  useEffect(() => {
-    if (profile) {
-      findReviewsByUser(profile._id).then(reviews => setReviews(reviews));
-    }
-  }, [profile]);
 
-  if (!profile || !reviews) {
+  if (!currentUser || !reviewsForUser) {
     return <div>Loading...</div>;
   }
 
-  console.log(reviews);
-  console.log(reviews && reviews.length > 0)
+  console.log(reviewsForUser);
+  console.log(reviewsForUser && reviewsForUser.length > 0)
 
   function handleClose() {
     setEditModalIsOpen(false);
@@ -68,17 +52,17 @@ function ProfilePage() {
 
   return (
     <div className={"container mt-4"}>
-      <span className={"wd-bold-text wd-font-size-32"}>{profile.firstName + ' ' + profile.lastName}</span>
-      { currentUser && currentUser._id === profile._id && <button type="button" onClick={() => {setEditModalIsOpen(true)}} className={"wd-btn-transparent mt-1 float-end"}>Edit Profile</button> }
+      <span className={"wd-bold-text wd-font-size-32"}>{currentUser.firstName + ' ' + currentUser.lastName}</span>
+      <button type="button" onClick={() => {setEditModalIsOpen(true)}} className={"wd-btn-transparent mt-1 float-end"}>Edit Profile</button>
       <br/>
-      <span>{'@' + profile.username}</span><br/>
-      { reviews && <span>{reviews.length} reviews</span> }
+      <span>{'@' + currentUser.username}</span><br/>
+      { reviewsForUser && <span>{reviewsForUser.length} reviews</span> }
       {
-          (reviews && reviews.length > 0) ? <div className={"mt-4"}>
+          (reviewsForUser && reviewsForUser.length > 0) ? <div className={"mt-4"}>
             <span className={"text-muted"}>Reviews</span>
             <div className={"mt-2"}>
                 {
-                    reviews.map(review => <ProfileReviewItem key={review.id} reviewDetail={review}/>)
+                    !loading && reviewsForUser.map(review => <ProfileReviewItem key={review._id} reviewDetail={review}/>)
                 }
             </div>
           </div> :
@@ -86,7 +70,6 @@ function ProfilePage() {
             <span className={"text-muted"}>No reviews yet</span>
           </div>
       }
-      <EditProfileModal editModalIsOpen={editModalIsOpen} close={handleClose} profile={profile} updateProfile={updateProfile}/>
     </div>
   );
 }

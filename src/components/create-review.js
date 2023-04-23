@@ -8,7 +8,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 const CreateReview = (aid) => {
   let [reviewContent, setReviewContent] = useState('');
   let [reviewStars, setReviewStars] = useState(0);
-  const { currentUser } = useSelector((state) => state.users);
+  const { currentUser } = useSelector((state) => state.currentUser);
 
   const dispatch = useDispatch();
   const createReviewClickHandler = () => {
