@@ -7,6 +7,12 @@ export const findTop5Reviews = async () => {
     return reviews;
 }
 
+export const findLikedReviews = async () => {
+    const response = await axios.get(`${API_BASE}/likedReviews`);
+    const reviews = response.data;
+    return reviews;
+}
+
 export const findReviewsForAlbum = async (aid) => {
     const response = await axios.get(`${API_BASE}/albums/${aid}/reviews`);
     const reviews = response.data;
