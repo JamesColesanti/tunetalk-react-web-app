@@ -23,6 +23,11 @@ export const profileThunk = createAsyncThunk(
   }
 );
 
+export const findUserByIdThunk = createAsyncThunk(
+    "users/findUserById",
+    async (uid) => await userService.findUserById(uid)
+);
+
 export const findUserByUsernameThunk = createAsyncThunk(
   "users/findUserByUsername",
   async (username) => await userService.findUserByUsername(username)

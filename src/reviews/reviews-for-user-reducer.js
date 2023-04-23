@@ -1,29 +1,29 @@
 import {createSlice} from "@reduxjs/toolkit";
 import {
-  findTop5ReviewsThunk,
-  updateReviewThunk
+  updateReviewThunk,
+  findReviewsByUserThunk
 } from "../services/reviews-thunks";
 
 const initialState = {
-  reviews: [],
+  reviewsForUser: [],
   loading: false
 }
 
-const reviewsSlice = createSlice({
-  name: 'reviews',
+const reviewsForUserSlice = createSlice({
+  name: 'reviewsForUser',
   initialState,
   extraReducers: {
-    [findTop5ReviewsThunk.pending]:
+    [findReviewsByUserThunk.pending]:
         (state) => {
           state.loading = true
-          state.reviews = []
+          state.reviewsForUser = []
         },
-    [findTop5ReviewsThunk.fulfilled]:
+    [findReviewsByUserThunk.fulfilled]:
         (state, { payload }) => {
           state.loading = false
-          state.reviews = payload
+          state.reviewsForUser = payload
         },
-    [findTop5ReviewsThunk.rejected]:
+    [findReviewsByUserThunk.rejected]:
         (state, action) => {
           state.loading = false
           state.error = action.error
@@ -31,14 +31,14 @@ const reviewsSlice = createSlice({
     [updateReviewThunk.fulfilled]:
         (state, { payload }) => {
           state.loading = false
-          const reviewNdx = state.reviews
+          const reviewNdx = state.reviewsForUser
           .findIndex((t) => t._id === payload._id)
-          state.reviews[reviewNdx] = {
-            ...state.reviews[reviewNdx],
+          state.reviewsForUser[reviewNdx] = {
+            ...state.reviewsForUser[reviewNdx],
             ...payload
           }
         },
   },
 });
 
-export default reviewsSlice.reducer;
+export default reviewsForUserSlice.reducer;

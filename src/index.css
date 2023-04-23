@@ -227,7 +227,6 @@ code {
 .wd-text-ellipses {
   text-overflow: ellipsis;
   overflow: hidden;
-  white-space: nowrap;
 }
 
 .wd-black-bold-text {

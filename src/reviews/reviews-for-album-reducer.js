@@ -1,10 +1,7 @@
 import {createSlice} from "@reduxjs/toolkit";
 import {
-  findTop5ReviewsThunk,
-  findReviewsByUserThunk,
-  findReviewsForAlbumThunk, createReviewThunk
+  findReviewsForAlbumThunk, createReviewThunk, updateReviewThunk
 } from "../services/reviews-thunks";
-import {findReviewsForAlbum} from "../services/reviews-service";
 
 const initialState = {
   reviewsForAlbum: [],
@@ -34,6 +31,16 @@ const reviewsForAlbumSlice = createSlice({
         (state, {payload}) => {
           state.loading = false
           state.reviewsForAlbum.push(payload)
+        },
+    [updateReviewThunk.fulfilled]:
+        (state, { payload }) => {
+          state.loading = false
+          const reviewNdx = state.reviewsForAlbum
+          .findIndex((t) => t._id === payload._id)
+          state.reviewsForAlbum[reviewNdx] = {
+            ...state.reviewsForAlbum[reviewNdx],
+            ...payload
+          }
         },
   },
 });
