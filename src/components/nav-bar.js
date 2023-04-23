@@ -31,7 +31,12 @@ const Navbar = () => {
                                  to="/register">Register</NavLink>
                       </li>
                     </>
-                }
+                  }
+                  { currentUser && currentUser.isAdmin ? 
+                    <li className="nav-item">
+                      <NavLink className="nav-link" to="/admin">Admin</NavLink>
+                    </li> : <></>
+                  }
               </ul>
               <form className="d-flex">
                 <button className="btn btn-secondary my-2 my-sm-0">

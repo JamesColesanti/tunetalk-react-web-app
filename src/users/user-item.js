@@ -29,6 +29,10 @@ const UserItem = ({ userDetails }) => {
         setEditRoleModalIsOpen(false);
     }
 
+    function handleCloseDeleteModal() {
+        setDeleteModalIsOpen(false);
+    }
+
     return(
         <div className="mt-1 search-result-container">
             {/* <img className="album-cover" width="150" height="150" src={albumDetail.images[0].url} alt={albumDetail.name + ' Cover'}/> */}
@@ -46,7 +50,7 @@ const UserItem = ({ userDetails }) => {
                     { !user.isAdmin ? <button type="button" onClick={() => {setEditRoleModalIsOpen(true)}} className={"wd-btn-transparent mt-1 float-end"}>Make User Admin</button> : <></>}
                     <EditUserRoleModal originalUser={user} editModalIsOpen={editRoleModalIsOpen} close={handleClose} updateUser={makeUserAdmin} />
                     { !user.isAdmin ? <button type="button" onClick={() => {setDeleteModalIsOpen(true)}} className={"wd-btn-transparent mt-1 float-end"}>Delete User</button> : <></>}
-                    <DeleteUserModal editModalIsOpen={deleteModalIsOpen} close={handleClose} deleteUser={deleteUserHandler} />
+                    <DeleteUserModal editModalIsOpen={deleteModalIsOpen} close={handleCloseDeleteModal} deleteUser={() => deleteUserHandler()} />
                 </span>
             </div>
         </div>

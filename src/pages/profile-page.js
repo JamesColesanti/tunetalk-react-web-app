@@ -20,7 +20,9 @@ function ProfilePage() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(findReviewsByUserThunk(currentUser._id));
+    if (currentUser) {
+      dispatch(findReviewsByUserThunk(currentUser._id));
+    }
   }, [dispatch]);
 
   console.log(currentUser);
