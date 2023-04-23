@@ -5,7 +5,7 @@ import { faStar, faHeart } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {findAlbumById} from "../services/albums-service";
 import {useDispatch, useSelector} from "react-redux";
-import {updateReviewThunk} from "../services/reviews-thunks";
+import {updateReviewThunk, deleteReviewThunk} from "../services/reviews-thunks";
 import {useNavigate} from "react-router-dom";
 
 const ProfileReviewItem = ({reviewDetail}) => {
@@ -14,6 +14,10 @@ const ProfileReviewItem = ({reviewDetail}) => {
   const stars = [...Array(reviewDetail.stars).keys()]
   const dispatch = useDispatch()
   const navigate = useNavigate()
+
+  const deleteReviewHandler = () => {
+      dispatch(deleteReviewThunk(reviewDetail._id));
+  }
 
   useEffect(() => {
     const getAlbum = async (albumId) => {
@@ -73,7 +77,10 @@ const ProfileReviewItem = ({reviewDetail}) => {
                     </span>
                   </h6>
                 </div>
+                <i className="bi bi-x-lg ml-auto"
+                            onClick={() => deleteReviewHandler()}></i>
               </h4>
+              
             </div>
             <p>{reviewDetail.content}</p>
             <p><FontAwesomeIcon
