@@ -8,7 +8,7 @@ import ProfilePage from "./pages/profile-page";
 import Navbar from "./components/navbar";
 import albumsReducer from "./albums/albums-reducer";
 import {configureStore} from '@reduxjs/toolkit';
-import {Provider} from "react-redux";
+import { Provider } from "react-redux";
 import RegisterScreen from "./pages/register";
 import CurrentUserContext from "./redux/current-user-context";
 import usersReducer from "./users/users-reducer";
@@ -16,16 +16,21 @@ import LoginScreen from "./pages/login";
 import reviewReducer from "./reviews/review-reducer";
 import albumDetailsReducer from "./services/album-details-reducer";
 import reviewsForAlbumReducer from "./reviews/reviews-for-album-reducer";
+import allUsersReducer from "./users/all-users-reducer";
+import AdminScreen from "./pages/admin-page";
 
 const store = configureStore({reducer: {
     albums: albumsReducer,
     users: usersReducer,
     reviews: reviewReducer,
     albumDetail: albumDetailsReducer,
-    reviewsForAlbum: reviewsForAlbumReducer
+    reviewsForAlbum: reviewsForAlbumReducer,
+    allUsers: allUsersReducer,
 }});
 
 function App() {
+  // const { currentUser } = useSelector((state) => state.users);
+
   return (
     <Provider store={store}>
       <CurrentUserContext>
@@ -39,6 +44,7 @@ function App() {
             <Route path={"/profile/:userId"} element={<ProfilePage/>} />
             <Route path={"/register"} element={<RegisterScreen/>} />
             <Route path={"/login"} element={<LoginScreen/>} />
+            <Route path={"/admin"} element={<AdminScreen/>} />
           </Routes>
         </BrowserRouter>
       </CurrentUserContext>

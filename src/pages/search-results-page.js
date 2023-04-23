@@ -44,7 +44,6 @@ function SearchResultsPage () {
                 <li className="list-group-item">
                     Loading...
                 </li>
-
             }
             <div className={"row"} style={{margin: "auto"}}>
                 <div className={"pl-1 pr-1"}>

@@ -4,7 +4,7 @@ import React from "react";
 
 const Navbar = () => {
   const { currentUser } = useSelector((state) => state.users);
-  
+
   return (
       <>
         <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
@@ -34,7 +34,11 @@ const Navbar = () => {
                   </li>
                 </>
                 }
-
+                { currentUser && currentUser.isAdmin ? 
+                  <li className="nav-item">
+                    <NavLink className="nav-link" to="/admin">Admin</NavLink>
+                  </li> : <></>
+                }
               </ul>
               <form className="d-flex">
                   <button className="btn btn-secondary my-2 my-sm-0">
