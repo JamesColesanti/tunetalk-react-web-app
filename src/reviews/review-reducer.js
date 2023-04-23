@@ -1,5 +1,6 @@
 import {createSlice} from "@reduxjs/toolkit";
 import {
+  findLikedReviewsThunk,
   findTop5ReviewsThunk,
   updateReviewThunk
 } from "../services/reviews-thunks";
@@ -24,6 +25,21 @@ const reviewsSlice = createSlice({
           state.reviews = payload
         },
     [findTop5ReviewsThunk.rejected]:
+        (state, action) => {
+          state.loading = false
+          state.error = action.error
+        },
+    [findLikedReviewsThunk.pending]:
+        (state) => {
+          state.loading = true
+          state.reviews = []
+        },
+    [findLikedReviewsThunk.fulfilled]:
+        (state, { payload }) => {
+          state.loading = false
+          state.reviews = payload
+        },
+    [findLikedReviewsThunk.rejected]:
         (state, action) => {
           state.loading = false
           state.error = action.error
