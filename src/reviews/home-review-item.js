@@ -24,7 +24,6 @@ const HomeReviewItem = ({reviewDetail}) => {
     }
     getAlbum(reviewDetail.albumId);
     getUser(reviewDetail.userId);
-    console.log(album)
   }, []);
   const releaseYearString = album.release_date ? album.release_date.substring(0, album.release_date.indexOf('-')) : '';
 
@@ -33,17 +32,22 @@ const HomeReviewItem = ({reviewDetail}) => {
         <div className="review-container">
           <div className={"col-2 m-1"}>
             {
-              album && <img className="w-100" src={album.images[0].url}/>
+              album &&
+              <a href={`/details/${reviewDetail.albumId}`}>
+                 <img className="home-image" src={album.images[0].url}/>
+              </a>
             }
           </div>
           <div className={"col-10 m-1"}>
             <div>
               <h4>
-                {album.name}
+                <a className="review-link" href={`/details/${reviewDetail.albumId}`}>
+                  {album.name}
+                </a>
                 <small className={"m-1 text-muted"}> {releaseYearString}</small>
                 <div>
                   <h6 className={"mt-1 text-muted"}>
-                    <span> {user.username}
+                    <span> <a className={"review-link"} href={`/profile/${reviewDetail.userId}`}> {user.username} </a>
                       <span className={"m-1 text-warning"}>
                       {
                         stars.map(_ => <FontAwesomeIcon icon={faStar}/>)

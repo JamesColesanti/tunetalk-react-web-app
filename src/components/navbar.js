@@ -42,7 +42,7 @@ const Navbar = () => {
               </ul>
               <form className="d-flex">
                   <button className="btn btn-secondary my-2 my-sm-0">
-                      <a href="/search/">Search</a>
+                      <a className={ "text-decoration-none"} href="/search/">Search</a>
                   </button>
               </form>
             </div>

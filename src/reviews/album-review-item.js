@@ -26,12 +26,9 @@ const AlbumReviewItem = ({reviewDetail}) => {
           <div className={"col-10 m-1"}>
             <div>
               <h4>
-                {
-                    !reviewDetail.title && "No Title Given"
-                }
                 <div>
                   <h6 className={"mt-1 text-muted"}>
-                    <span> {user.username}
+                    <span> <a className={"review-link"} href={`/profile/${reviewDetail.userId}`}> {user.username} </a>
                       <span className={"m-1 text-warning"}>
                       {
                         stars.map(_ => <FontAwesomeIcon icon={faStar}/>)
