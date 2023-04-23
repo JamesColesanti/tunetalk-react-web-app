@@ -16,3 +16,7 @@ export const findReviewsByUserThunk = createAsyncThunk('reviews/findReviewsByUse
 export const createReviewThunk = createAsyncThunk('reviews/createReview',
     async (newReview) => await service.createReview(newReview)
 )
+
+export const updateReviewThunk = createAsyncThunk('reviews/updateReview',
+    async (newReview) => await service.updateReview(newReview)
+)

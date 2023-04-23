@@ -27,3 +27,8 @@ export const findUserByUsernameThunk = createAsyncThunk(
   "users/findUserByUsername",
   async (username) => await userService.findUserByUsername(username)
 );
+
+export const updateUserThunk = createAsyncThunk(
+  "users/updateUser",
+  async (user) => await userService.updateUser(user)
+);
