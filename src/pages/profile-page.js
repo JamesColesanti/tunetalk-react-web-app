@@ -8,7 +8,7 @@ import ProfileReviewItem from "../reviews/profile-review-item";
 import EditProfileModal from "../components/edit-profile-modal";
 
 function ProfilePage() {
-  const { username } = useParams();
+  const { uid } = useParams();
   const { currentUser } = useSelector((state) => state.users);
   const [profile, setProfile] = useState({});
   const [reviews, setReviews] = useState([]);
@@ -21,8 +21,14 @@ function ProfilePage() {
     const action = await dispatch(profileThunk());
     setProfile(action.payload);
   };
-  const getUserByUsername = async () => {
-    const user = await userService.findUserByUsername(username);
+  const getUserById = async () => {
+    let user;
+    try {
+      user = await userService.findUserById(uid);
+    }
+    catch (e) {
+        navigate("/");
+    }
     setProfile(user);
   };
 
@@ -36,15 +42,15 @@ function ProfilePage() {
     navigate("/login");
   };
   useEffect(() => {
-    if (username) {
-      getUserByUsername();
+    if (uid) {
+      getUserById();
     } else {
       getProfile();
     }
-  }, []);
+  }, [uid]);
 
   useEffect(() => {
-    if (profile._id) {
+    if (profile) {
       findReviewsByUser(profile._id).then(reviews => setReviews(reviews));
     }
   }, [profile]);
