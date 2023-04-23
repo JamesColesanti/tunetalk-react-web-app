@@ -41,7 +41,7 @@ function App() {
             <Route path={"/search"} element={<SearchResultsPage/>} />
             <Route path={"/details/:albumId"} element={<AlbumDetailsPage/>} />
             <Route path={"/profile"} element={<ProfilePage/>} />
-            <Route path={"/profile/:userId"} element={<ProfilePage/>} />
+            <Route path={"/profile/:uid"} element={<ProfilePage/>} />
             <Route path={"/register"} element={<RegisterScreen/>} />
             <Route path={"/login"} element={<LoginScreen/>} />
             <Route path={"/admin"} element={<AdminScreen/>} />

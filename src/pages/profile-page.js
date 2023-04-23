@@ -1,105 +1,92 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable jsx-a11y/alt-text */
-// import React from 'react';
-
-// function ProfilePage () {
-//     return (
-//         <div>
-//             <div className="row mt-4">
-//               <div className="col-1"></div>
-//               <div className="col-3 d-flex justify-content-center">
-//                 <img className="rounded-circle" height={100} src={`../images/albums/bad_bunny.png`}/>
-//                 <div className="m-2">
-//                   <div className="fw-bold">aniamisiorek</div>
-//                   <button type="button"
-//                           className="btn btn-secondary btn-sm">Edit Profile
-//                   </button>
-//                 </div>
-//               </div>
-//               <div className="col-8 d-flex justify-content-center">
-//                 <div>
-//                   4 likes
-//                 </div>
-//                 <span>10 reviews</span>
-//               </div>
-//               <div className="col-1"></div>
-//             </div>
-//         </div>
-//     );
-// }
-// export default ProfilePage;
-
 import React, { useState, useEffect } from "react";
 import * as userService from "../services/users-service";
 import { useNavigate, useParams } from "react-router-dom";
 import { profileThunk, logoutThunk } from "../services/users-thunks";
 import { useDispatch, useSelector } from "react-redux";
+import {findReviewsByUser} from "../services/reviews-service";
+import ProfileReviewItem from "../reviews/profile-review-item";
+import EditProfileModal from "../components/edit-profile-modal";
 
 function ProfilePage() {
-  const { username } = useParams();
+  const { uid } = useParams();
   const { currentUser } = useSelector((state) => state.users);
   const [profile, setProfile] = useState({});
+  const [reviews, setReviews] = useState([]);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  const [editModalIsOpen, setEditModalIsOpen] = useState(false);
   const getProfile = async () => {
     // const profile = await userService.profile();
     const action = await dispatch(profileThunk());
     setProfile(action.payload);
   };
-  const getUserByUsername = async () => {
-    const user = await userService.findUserByUsername(username);
+  const getUserById = async () => {
+    let user;
+    try {
+      user = await userService.findUserById(uid);
+    }
+    catch (e) {
+        navigate("/");
+    }
     setProfile(user);
   };
+
+  const updateProfile = async (newProfile) => {
+    await userService.updateUser(newProfile);
+    setProfile(newProfile);
+  }
+
   const logout = async () => {
     dispatch(logoutThunk());
     navigate("/login");
   };
   useEffect(() => {
-    if (username) {
-      getUserByUsername();
+    if (uid) {
+      getUserById();
     } else {
       getProfile();
     }
-  }, []);
+  }, [uid]);
+
+  useEffect(() => {
+    if (profile) {
+      findReviewsByUser(profile._id).then(reviews => setReviews(reviews));
+    }
+  }, [profile]);
+
+  if (!profile || !reviews) {
+    return <div>Loading...</div>;
+  }
+
+  console.log(reviews);
+  console.log(reviews && reviews.length > 0)
+
+  function handleClose() {
+    setEditModalIsOpen(false);
+  }
+
   return (
-    <div>
-      <h1>
-        <button className="float-end btn btn-primary">Follow</button>
-        Profile {username}
-      </h1>
-      {profile && (
-        <div>
-          <label>Username</label>
-          {currentUser && (
-            <input
-              type="text"
-              className="form-control"
-              value={profile.username}
-              onChange={(e) =>
-                setProfile({ ...profile, username: e.target.value })
-              }
-            />
-          )}
-          {!currentUser && <p>{profile.username}</p>}
-          <label>First Name</label>
-          {currentUser && (
-            <input
-              type="text"
-              className="form-control"
-              value={profile.firstName}
-              onChange={(e) =>
-                setProfile({ ...profile, firstName: e.target.value })
-              }
-            />
-          )}
-          {!currentUser && <p>{profile.firstName}</p>}
-        </div>
-      )}
-      {currentUser && (
-        <button onClick={() => logout()} className="btn btn-danger">
-          Logout
-        </button>
-      )}
+    <div className={"container mt-4"}>
+      <span className={"wd-bold-text wd-font-size-32"}>{profile.firstName + ' ' + profile.lastName}</span>
+      { currentUser && currentUser._id === profile._id && <button type="button" onClick={() => {setEditModalIsOpen(true)}} className={"wd-btn-transparent mt-1 float-end"}>Edit Profile</button> }
+      <br/>
+      <span>{'@' + profile.username}</span><br/>
+      { reviews && <span>{reviews.length} reviews</span> }
+      {
+          (reviews && reviews.length > 0) ? <div className={"mt-4"}>
+            <span className={"text-muted"}>Reviews</span>
+            <div className={"mt-2"}>
+                {
+                    reviews.map(review => <ProfileReviewItem key={review.id} reviewDetail={review}/>)
+                }
+            </div>
+          </div> :
+          <div>
+            <span className={"text-muted"}>No reviews yet</span>
+          </div>
+      }
+      <EditProfileModal editModalIsOpen={editModalIsOpen} close={handleClose} profile={profile} updateProfile={updateProfile}/>
     </div>
   );
 }

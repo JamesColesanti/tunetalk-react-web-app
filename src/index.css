@@ -216,6 +216,10 @@ code {
   font-size: 14px;
 }
 
+.wd-font-size-24 {
+  font-size: 24px;
+}
+
 .wd-font-size-32 {
   font-size: 32px;
 }
@@ -233,6 +237,17 @@ code {
 
 .wd-bold-text {
   font-weight: bold;
+}
+
+.wd-btn-transparent {
+  background-color: rgba(29, 25, 31, .4);
+  border: 1px solid whitesmoke;
+  padding: 10px;
+  border-radius: 4px;
+}
+
+.wd-btn-transparent:hover {
+  background-color: rgba(29, 25, 31, .6);
 }
 
 .wd-basic-tuit-picture {
