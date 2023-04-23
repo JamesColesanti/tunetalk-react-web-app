@@ -4,13 +4,15 @@ import React, {useEffect, useState} from "react";
 import { faStar, faHeart } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {findAlbumById} from "../services/albums-service";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {findUserById} from "../services/users-service";
+import {updateReviewThunk} from "../services/reviews-thunks";
+import {useNavigate} from "react-router-dom";
 
 const HomeReviewItem = ({reviewDetail}) => {
   const [album, setAlbum] = useState(false);
   const [user, setUser] = useState({username: "[Deactivated User]"});
-  const { currentUser } = useSelector((state) => state.users);
+  const { currentUser } = useSelector((state) => state.currentUser);
   const stars = [...Array(reviewDetail.stars).keys()]
 
   useEffect(() => {
@@ -20,12 +22,36 @@ const HomeReviewItem = ({reviewDetail}) => {
     }
     const getUser = async (userId) => {
       const user = await findUserById(userId);
-      setUser(user)
+      if (user) {
+        setUser(user)
+      }
     }
     getAlbum(reviewDetail.albumId);
     getUser(reviewDetail.userId);
   }, []);
   const releaseYearString = album.release_date ? album.release_date.substring(0, album.release_date.indexOf('-')) : '';
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+
+  const likePostHandler = (id) => {
+    if (currentUser) {
+      let liked;
+      let likes;
+      if (reviewDetail.liked) {
+        liked = false
+        likes = reviewDetail.likes - 1
+      } else {
+        liked = true
+        likes = reviewDetail.likes + 1
+      }
+      dispatch(updateReviewThunk({
+        _id: id,
+        likes: likes,
+        liked: liked}))
+    } else {
+      navigate("/login")
+    }
+  }
 
   return (
       <>
@@ -47,7 +73,14 @@ const HomeReviewItem = ({reviewDetail}) => {
                 <small className={"m-1 text-muted"}> {releaseYearString}</small>
                 <div>
                   <h6 className={"mt-1 text-muted"}>
-                    <span> <a className={"review-link"} href={`/profile/${reviewDetail.userId}`}> {user.username} </a>
+                    <span>
+                      {
+                        user._id && <a className={"review-link"}
+                                       href={user._id ? `/profile/${reviewDetail.userId}` : ""}> {user.username} </a>
+                      }
+                      {
+                        !user._id && <a className={"review-link"}> {user.username} </a>
+                      }
                       <span className={"m-1 text-warning"}>
                       {
                         stars.map(_ => <FontAwesomeIcon icon={faStar}/>)
@@ -60,7 +93,9 @@ const HomeReviewItem = ({reviewDetail}) => {
             </div>
             <p>{reviewDetail.content}</p>
             <p><FontAwesomeIcon
-                className={currentUser && reviewDetail.liked ? "text-primary" : ""} icon={faHeart}/> {reviewDetail.likes} likes</p>
+                className={currentUser && reviewDetail.liked ? "text-primary": ""}
+                onClick={() => {likePostHandler(reviewDetail._id)}}
+                icon={faHeart}/> {reviewDetail.likes} likes</p>
           </div>
         </div>
       </>

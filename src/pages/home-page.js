@@ -6,11 +6,12 @@ import React, {useEffect} from 'react';
 import HomeReviewItem from "../reviews/home-review-item.js";
 import {useDispatch, useSelector} from "react-redux";
 import {findTop5ReviewsThunk} from "../services/reviews-thunks.js";
-import featuredAlbums from "../data/featured-albums.json"
+import HomeHeaderAnonymous from "../components/home-header-anonymous";
+import HomeHeaderUser from "../components/home-header-user";
 
 function HomePage () {
   const {reviews, loading} = useSelector((state) => state.reviews)
-  const { currentUser } = useSelector((state) => state.users);
+  const { currentUser } = useSelector((state) => state.currentUser);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(findTop5ReviewsThunk());
@@ -18,34 +19,19 @@ function HomePage () {
 
     return (
         <>
-          <div className="row">
-            <div className="col-12 text-center mt-5 mb-5">
-              <h1>Welcome to TuneTalk</h1>
-              <h2>Listen to albums. Like your favorite. Share your thoughts.</h2>
-            </div>
-          </div>
-          <div className="row mb-5">
-            <div className="col-1"></div>
-            <div className="col-10">
-              <div className="d-flex justify-content-center">
-                {
-                  featuredAlbums.map(album =>
-                      <a className={"home-link"} href={`/details/${album.id}`}>
-                        <img src={album.image} className={"home-image"}/>
-                      </a>
-                  )
-                }
-              </div>
-            </div>
-            <div className="col-1"></div>
-          </div>
+          {
+            currentUser ?  <HomeHeaderUser/> : <HomeHeaderAnonymous/>
+          }
           <div className="row">
             <div className="col-1"></div>
             <div className="col-10">
               <h3 className={"text-muted d-flex justify-content-right"}>Recent Reviews</h3>
               <hr></hr>
               {
-                  reviews.length != 0 && reviews.map(review => <HomeReviewItem key={review._id} reviewDetail={review}/> )
+                loading && <p>Loading...</p>
+              }
+              {
+                reviews.map(review => <HomeReviewItem key={review._id} reviewDetail={review}/> )
               }
             </div>
             <div className="col-1"></div>

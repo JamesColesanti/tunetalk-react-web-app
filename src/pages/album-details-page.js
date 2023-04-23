@@ -8,9 +8,9 @@ import AlbumReviewItem from "../reviews/album-review-item";
 import CreateReview from "../components/create-review";
 
 function AlbumDetailsPage () {
-    const {albumDetail, loading} = useSelector((state) => state.albumDetail)
+    const {albumDetail, aLoading} = useSelector((state) => state.albumDetail)
     const {reviewsForAlbum, rLoading} = useSelector((state) => state.reviewsForAlbum)
-    const {currentUser} = useSelector((state) => state.users)
+    const {currentUser} = useSelector((state) => state.currentUser)
     const dispatch = useDispatch();
     const {albumId} = useParams();
 
@@ -19,7 +19,7 @@ function AlbumDetailsPage () {
         dispatch(findReviewsForAlbumThunk(albumId));
     }, [dispatch, albumId]);
 
-    if (loading || !albumDetail.albumInfo || !albumDetail.tracks) {
+    if (aLoading || !albumDetail.albumInfo || !albumDetail.tracks) {
         return <div>Loading...</div>
     }
 
@@ -54,7 +54,7 @@ function AlbumDetailsPage () {
                     currentUser && <CreateReview aid={albumId}/>
                 }
                 {
-                    reviewsForAlbum.length != 0 && reviewsForAlbum.map(review => <AlbumReviewItem key={review.id} reviewDetail={review}/> )
+                    !rLoading && reviewsForAlbum.map(review => <AlbumReviewItem key={review.id} reviewDetail={review}/> )
                 }
             </div>
         </div>
