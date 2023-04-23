@@ -4,10 +4,10 @@ import { useDispatch } from "react-redux";
 import { loginThunk } from "../services/users-thunks";
 function LoginScreen() {
   const [user, setUser] = useState({
-    username: "alice",
-    password: "alice",
-    firstName: "Alice",
-    lastName: "Wonderland",
+    username: "JamesC18",
+    password: "test123",
+    firstName: "James",
+    lastName: "Colesanti",
   });
   const navigate = useNavigate();
   const dispatch = useDispatch();

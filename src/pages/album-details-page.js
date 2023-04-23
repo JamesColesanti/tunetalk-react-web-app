@@ -3,9 +3,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {useParams} from "react-router-dom";
 import {findAlbumDetailsThunk} from "../services/albums-thunks";
 import "./AlbumDetailsPage.css";
-import TracklistItem from "../components/tracklist-item";
 import {findReviewsForAlbumThunk} from "../services/reviews-thunks";
-import HomeReviewItem from "../reviews/home-review-item";
 import AlbumReviewItem from "../reviews/album-review-item";
 import CreateReview from "../components/create-review";
 

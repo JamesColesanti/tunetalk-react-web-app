@@ -24,3 +24,8 @@ export const createReview = async (newReview) => {
     const response = await axios.post(`${API_BASE}/albums/${aid}/reviews`, newReview);
     return response.data;
 }
+
+export const updateReview = async (newReview) => {
+    const response = await axios.put(`${API_BASE}/albums/${newReview.rid}/reviews`, newReview);
+    return response.data;
+}
