@@ -61,3 +61,11 @@
 .home-image:hover {
   opacity: 60%;
 }
+
+.review-link {
+  text-decoration: none;
+}
+
+.review-link:hover {
+  color: lightblue;
+}
