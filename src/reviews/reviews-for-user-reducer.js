@@ -17,7 +17,6 @@ const reviewsForUserSlice = createSlice({
     [findReviewsByUserThunk.pending]:
         (state) => {
           state.loading = true
-          state.reviewsForUser = []
         },
     [findReviewsByUserThunk.fulfilled]:
         (state, { payload }) => {
