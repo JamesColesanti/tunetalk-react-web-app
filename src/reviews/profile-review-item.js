@@ -15,10 +15,6 @@ const ProfileReviewItem = ({reviewDetail}) => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
-  const deleteReviewHandler = () => {
-      dispatch(deleteReviewThunk(reviewDetail._id));
-  }
-
   useEffect(() => {
     const getAlbum = async (albumId) => {
       const album = await findAlbumById(albumId);
@@ -52,6 +48,9 @@ const ProfileReviewItem = ({reviewDetail}) => {
     }
   }
 
+  const deleteReviewHandler = () => {
+    dispatch(deleteReviewThunk(reviewDetail));
+  }
 
   return (
       <>
@@ -77,8 +76,8 @@ const ProfileReviewItem = ({reviewDetail}) => {
                     </span>
                   </h6>
                 </div>
-                <i className="bi bi-x-lg ml-auto"
-                            onClick={() => deleteReviewHandler()}></i>
+                {currentUser && (currentUser._id === reviewDetail.userId || currentUser.isAdmin) ? <i className="bi bi-x-lg ml-auto"
+                            onClick={() => deleteReviewHandler()}></i> : <></> }
               </h4>
               
             </div>

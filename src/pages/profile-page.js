@@ -23,22 +23,12 @@ function ProfilePage() {
     if (currentUser) {
       dispatch(findReviewsByUserThunk(currentUser._id));
     }
-  }, [dispatch]);
-
-  //console.log(currentUser);
-
-
-
-  //const updateProfile = async (newProfile) => {
-   // await userService.updateUser(newProfile);
-    //setProfile(newProfile);
- // }
+  }, [dispatch, currentUser]);
 
   const logout = async () => {
     dispatch(logoutThunk());
     navigate("/login");
   };
-
 
   if (!currentUser || !reviewsForUser) {
     return <div>Loading...</div>;

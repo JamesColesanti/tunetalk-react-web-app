@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {findAlbumById} from "../services/albums-service";
 import {useDispatch, useSelector} from "react-redux";
 import {findUserById} from "../services/users-service";
-import {updateReviewThunk} from "../services/reviews-thunks";
+import {updateReviewThunk, deleteReviewThunk} from "../services/reviews-thunks";
 import {useNavigate} from "react-router-dom";
 
 const HomeReviewItem = ({reviewDetail}) => {
@@ -54,6 +54,10 @@ const HomeReviewItem = ({reviewDetail}) => {
     }
   }
 
+  const deleteReviewHandler = () => {
+    dispatch(deleteReviewThunk(reviewDetail));
+  }
+  
   return (
       <>
         <div className="review-container">
@@ -90,6 +94,8 @@ const HomeReviewItem = ({reviewDetail}) => {
                     </span>
                   </h6>
                 </div>
+                {currentUser && (currentUser._id === reviewDetail.userId || currentUser.isAdmin) ? <i className="bi bi-x-lg ml-auto"
+                            onClick={() => deleteReviewHandler()}></i> : <></> }
               </h4>
             </div>
             <p>{reviewDetail.content}</p>
