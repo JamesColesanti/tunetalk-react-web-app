@@ -37,6 +37,6 @@ export const updateReview = async (newReview) => {
 }
 
 export const deleteReview = async (review) => {
-    const response = await axios.put(`${API_BASE}/albums/${review.albumId}/reviews/${review._id}`);
+    const response = await axios.delete(`${API_BASE}/albums/${review.albumId}/reviews/${review._id}`);
     return response.data;
 }

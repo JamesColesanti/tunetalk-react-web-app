@@ -1,6 +1,6 @@
 import {createSlice} from "@reduxjs/toolkit";
 import {
-  findReviewsForAlbumThunk, createReviewThunk, updateReviewThunk
+  findReviewsForAlbumThunk, createReviewThunk, updateReviewThunk, deleteReviewThunk
 } from "../services/reviews-thunks";
 
 const initialState = {
@@ -41,6 +41,11 @@ const reviewsForAlbumSlice = createSlice({
             ...state.reviewsForAlbum[reviewNdx],
             ...payload
           }
+        },
+    [deleteReviewThunk.fulfilled]:
+        (state, { payload }) => {
+            state.loading = false
+            state.reviewsForAlbum = state.reviewsForAlbum.filter(user => user._id !== payload._id)
         },
   },
 });

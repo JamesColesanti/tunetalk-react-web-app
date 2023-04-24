@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {useDispatch, useSelector} from "react-redux";
 import {findUserById} from "../services/users-service";
 import {useNavigate} from "react-router-dom";
-import {updateReviewThunk} from "../services/reviews-thunks";
+import {updateReviewThunk, deleteReviewThunk} from "../services/reviews-thunks";
 
 const AlbumReviewItem = ({reviewDetail}) => {
   const [user, setUser] = useState({username: "[Deactivated User]"});
@@ -46,6 +46,10 @@ const AlbumReviewItem = ({reviewDetail}) => {
     }
   }
 
+  const deleteReviewHandler = () => {
+    dispatch(deleteReviewThunk(reviewDetail));
+  }
+
   return (
       <>
         <div className="review-container">
@@ -71,6 +75,8 @@ const AlbumReviewItem = ({reviewDetail}) => {
                   </h6>
                 </div>
               </h4>
+              {currentUser && (currentUser._id === reviewDetail.userId || currentUser.isAdmin) ? <i className="bi bi-x-lg ml-auto"
+                            onClick={() => deleteReviewHandler()}></i> : <></> }
             </div>
             <p>{reviewDetail.content}</p>
             <p><FontAwesomeIcon className={currentUser && reviewDetail.liked ? "text-primary": ""}
