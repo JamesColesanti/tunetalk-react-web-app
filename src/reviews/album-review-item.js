@@ -53,7 +53,7 @@ const AlbumReviewItem = ({reviewDetail}) => {
   return (
       <>
         <div className="review-container">
-          <div className={"col-10 m-1"}>
+          <div className={"col-11 p-1"}>
             <div>
               <h4>
                 <div>
@@ -75,13 +75,15 @@ const AlbumReviewItem = ({reviewDetail}) => {
                   </h6>
                 </div>
               </h4>
-              {currentUser && (currentUser._id === reviewDetail.userId || currentUser.isAdmin) ? <i className="bi bi-x-lg ml-auto"
-                            onClick={() => deleteReviewHandler()}></i> : <></> }
             </div>
             <p>{reviewDetail.content}</p>
             <p><FontAwesomeIcon className={currentUser && reviewDetail.liked ? "text-primary": ""}
                                 onClick={() => {likePostHandler(reviewDetail._id)}}
                                 icon={faHeart}/> {reviewDetail.likes} likes</p>
+          </div>
+          <div className={"col-1 d-flex justify-content-end"}>
+            {currentUser && (currentUser._id === reviewDetail.userId || currentUser.isAdmin) ? <i className="bi bi-x-lg ml-auto"
+                                                                                                  onClick={() => deleteReviewHandler()}></i> : <></> }
           </div>
         </div>
       </>

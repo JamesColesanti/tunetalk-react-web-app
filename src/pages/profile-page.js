@@ -1,10 +1,7 @@
 import React, { useState, useEffect } from "react";
-import * as userService from "../services/users-service";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {
-  profileThunk,
   logoutThunk,
-  findUserByIdThunk
 } from "../services/users-thunks";
 import { useDispatch, useSelector } from "react-redux";
 import ProfileReviewItem from "../reviews/profile-review-item";
@@ -13,7 +10,6 @@ import {findReviewsByUserThunk} from "../services/reviews-thunks";
 
 function ProfilePage() {
   const { currentUser } = useSelector((state) => state.currentUser);
-  //const [profile, setProfile] = useState({});
   const { reviewsForUser, loading } = useSelector((state) => state.reviewsForUser);
   const [editModalIsOpen, setEditModalIsOpen] = useState(false);
   const navigate = useNavigate();
@@ -30,12 +26,12 @@ function ProfilePage() {
     navigate("/login");
   };
 
-  if (!currentUser || !reviewsForUser) {
-    return <div>Loading...</div>;
-  }
-
   function handleClose() {
     setEditModalIsOpen(false);
+  }
+
+  if (!currentUser || !reviewsForUser) {
+    return <div>Loading...</div>;
   }
 
   return (
