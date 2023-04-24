@@ -17,7 +17,7 @@ function UserProfilePage() {
   }, [dispatch, uid]);
 
   if (uLoading || rLoading || !user || !reviewsForUser) {
-    return <div>Loading...</div>
+    return <div className={"container m-4"}><h1>Loading...</h1></div>;
   }
 
   return (

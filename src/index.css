@@ -243,6 +243,7 @@ code {
   border: 1px solid whitesmoke;
   padding: 10px;
   border-radius: 4px;
+  margin: 5px;
 }
 
 .wd-btn-transparent:hover {

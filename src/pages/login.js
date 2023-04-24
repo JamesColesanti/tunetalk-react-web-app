@@ -13,10 +13,10 @@ function LoginScreen() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const login = async () => {
-    // await userService.login(user);
     await dispatch(loginThunk(user));
-    navigate("/profile");
+    navigate("/");
   };
+
   return (
     <div className={"m-2 d-flex flex-column align-items-center"}>
       <div>

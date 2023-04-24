@@ -5,12 +5,12 @@ const DeleteUserModal = ({editModalIsOpen, close, deleteUser}) => {
     return (
         <Modal show={editModalIsOpen} onHide={() => close()}>
             <Modal.Header closeButton>
-                <Modal.Title>Make User Admin</Modal.Title>
+                <Modal.Title>Delete User</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                <div className="form-group w-50">
+                <div className="form-group w-100">
                     <div className={"m-1"}>
-                        Are you sure you want to make this user an admin? This action cannot be undone.
+                      Are you sure you want to delete this user? This action cannot be undone.
                     </div>
                 </div>
             </Modal.Body>

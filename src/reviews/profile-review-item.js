@@ -57,7 +57,10 @@ const ProfileReviewItem = ({reviewDetail}) => {
         <div className="review-container">
           <div className={"col-2 p-1"}>
             {
-                album && <img className="w-100" src={album.images[0].url}/>
+                album &&
+                <a href={`/details/${reviewDetail.albumId}`}>
+                  <img className="home-image" src={album.images[0].url}/>
+                </a>
             }
           </div>
           <div className={"col-9 p-1"}>
