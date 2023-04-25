@@ -20,7 +20,7 @@ function AlbumDetailsPage () {
     }, [dispatch, albumId]);
 
     if (aLoading || !albumDetail.albumInfo || !albumDetail.tracks) {
-        return <div>Loading...</div>
+        return <div className={"container m-4"}><h1>Loading...</h1></div>;
     }
 
     const artistsString = albumDetail.albumInfo ? albumDetail.albumInfo.artists.map(artist => artist.name).join(', ') : '';

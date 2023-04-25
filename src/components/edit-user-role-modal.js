@@ -8,7 +8,7 @@ const EditUserRoleModal = ({originalUser, editModalIsOpen, close, updateUser}) =
                 <Modal.Title>Make User Admin</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                <div className="form-group w-50">
+                <div className="form-group w-100">
                     <div className={"m-1"}>
                         Are you sure you want to make this user an admin? This action cannot be undone.
                     </div>

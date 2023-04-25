@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import * as userService from "../services/users-service";
 import { useNavigate } from "react-router-dom";
 import {registerThunk} from "../services/users-thunks";
 import {useDispatch} from "react-redux";

@@ -4,17 +4,17 @@ import { findAllUsersThunk } from '../services/users-thunks';
 import UserItem from '../users/user-item';
 
 function AdminScreen() {
-    const {allUsers, loading} = useSelector((state) => state.allUsers)
-    const dispatch = useDispatch();
+  const {allUsers, loading} = useSelector((state) => state.allUsers)
+  const dispatch = useDispatch();
 
-    useEffect(() => {
-        dispatch(findAllUsersThunk());
+  useEffect(() => {
+    dispatch(findAllUsersThunk());
     }, [dispatch]);
 
-    return (
+  return (
         <div className="container">
             <div>
-                <div className={"text-muted d-flex justify-content-between"}>
+                <div className={"text-muted pt-4"}>
                     <h4>Current Users</h4>
                 </div>
                 {

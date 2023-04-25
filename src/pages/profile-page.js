@@ -30,9 +30,14 @@ function ProfilePage() {
     setEditModalIsOpen(false);
   }
 
-  if (!currentUser || !reviewsForUser) {
-    return <div>Loading...</div>;
+  if (!reviewsForUser) {
+    return <div className={"container m-4"}><h1>Loading...</h1></div>;
   }
+
+  if (!currentUser) {
+    return <div className={"container m-4"}><h1>Page is forbidden. Please <a href={"/login"}>log in</a> or <a href={"/login"}>register</a>.</h1></div>;
+  }
+
 
   return (
       <div className={"container mt-4"}>
