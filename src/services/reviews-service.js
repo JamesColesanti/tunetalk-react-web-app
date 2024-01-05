@@ -1,5 +1,5 @@
 import axios from 'axios';
-const API_BASE = "https://tunetalk-node-server-app.onrender.com/api/";//process.env.TUNETALK_SERVER_API_BASE || "http://localhost:4000/api";
+const API_BASE = "https://tunetalk-node-server-app.onrender.com/api";//process.env.TUNETALK_SERVER_API_BASE || "http://localhost:4000/api";
 const value = JSON.stringify(process.env);
 
 export const findTop5Reviews = async () => {
