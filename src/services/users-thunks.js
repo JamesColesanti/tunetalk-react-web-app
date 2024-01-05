@@ -19,7 +19,7 @@ export const registerThunk = createAsyncThunk(
 export const profileThunk = createAsyncThunk(
   "users/profile",
   async (user, thunkAPI) => {
-    return await userService.profile();
+    return await userService.profile(user);
   }
 );
 

@@ -46,8 +46,8 @@ export const register = async (user) => {
   return response.data;
 };
 
-export const profile = async () => {
-  const response = await api.get(`${USERS_REST_API_URL}/profile`);
+export const profile = async (user) => {
+  const response = await api.get(`${USERS_REST_API_URL}/profile`, user);
   return response.data;
 };
 
