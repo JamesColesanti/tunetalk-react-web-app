@@ -3,10 +3,9 @@ import featuredAlbums from "../data/featured-albums.json";
 import HomeReviewItem from "../reviews/home-review-item";
 import {useDispatch, useSelector} from "react-redux";
 import {
-  findLikedReviewsThunk,
   findTop5ReviewsThunk
 } from "../services/reviews-thunks";
-
+x
 const HomeHeaderAnonymous = () => {
   const {reviews, loading} = useSelector((state) => state.reviews)
   const dispatch = useDispatch();
