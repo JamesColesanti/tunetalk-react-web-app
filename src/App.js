@@ -6,7 +6,7 @@ import SearchResultsPage from "./pages/search-results-page";
 import AlbumDetailsPage from "./pages/album-details-page";
 import ProfilePage from "./pages/profile-page";
 import albumsReducer from "./albums/albums-reducer";
-import {configureStore} from '@reduxjs/toolkit';
+import {combineReducers, configureStore} from '@reduxjs/toolkit';
 import { Provider } from "react-redux";
 import RegisterScreen from "./pages/register";
 import CurrentUserContext from "./redux/current-user-context";
@@ -30,7 +30,7 @@ const persistConfig = {
   storage,
 }
  
-const persistedReducer = persistReducer(persistConfig, {reducer: {
+const reducer = combineReducers({
   albums: albumsReducer,
   currentUser: currentUserReducer,
   reviews: reviewReducer,
@@ -39,8 +39,9 @@ const persistedReducer = persistReducer(persistConfig, {reducer: {
   reviewsForUser: reviewsForUserReducer,
   allUsers: allUsersReducer,
   user: userReducer
-}
 });
+
+const persistedReducer = persistReducer(persistConfig, reducer);
 
 const store = configureStore({reducer: persistedReducer});
 let persistor = persistStore(store);
