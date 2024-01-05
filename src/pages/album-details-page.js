@@ -13,11 +13,12 @@ function AlbumDetailsPage () {
     const {currentUser} = useSelector((state) => state.currentUser)
     const dispatch = useDispatch();
     const {albumId} = useParams();
+    console.log(currentUser);
 
     useEffect(() => {
         dispatch(findAlbumDetailsThunk(albumId));
         dispatch(findReviewsForAlbumThunk(albumId));
-    }, [dispatch, albumId, currentUser]);
+    }, [dispatch, albumId]);
 
     if (aLoading || !albumDetail.albumInfo || !albumDetail.tracks) {
         return <div className={"container m-4"}><h1>Loading...</h1></div>;

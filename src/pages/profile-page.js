@@ -14,6 +14,7 @@ function ProfilePage() {
   const [editModalIsOpen, setEditModalIsOpen] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  console.log(currentUser);
 
   useEffect(() => {
     if (currentUser) {
