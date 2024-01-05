@@ -4,13 +4,7 @@ import {registerThunk} from "../services/users-thunks";
 import {useDispatch} from "react-redux";
 
 function RegisterScreen() {
-  const [user, setUser] = useState({
-    username: "alice",
-    password: "alice",
-    firstName: "Alice",
-    lastName: "Wonderland",
-    email: "awonderland@gmail.com",
-  });
+  const [user, setUser] = useState({});
   const dispatch = useDispatch()
   const navigate = useNavigate();
 

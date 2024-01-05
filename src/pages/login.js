@@ -4,12 +4,7 @@ import { useDispatch } from "react-redux";
 import { loginThunk } from "../services/users-thunks";
 
 function LoginScreen() {
-  const [user, setUser] = useState({
-    username: "JamesC18",
-    password: "test123",
-    firstName: "James",
-    lastName: "Colesanti",
-  });
+  const [user, setUser] = useState({});
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const login = async () => {
