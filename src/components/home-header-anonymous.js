@@ -11,6 +11,7 @@ const HomeHeaderAnonymous = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(findTop5ReviewsThunk());
+    // eslint-disable-next-line
   }, []);
 
 
@@ -30,6 +31,7 @@ const HomeHeaderAnonymous = () => {
             </div>
             <div className="d-flex justify-content-center">
               {
+                // eslint-disable-next-line
                 featuredAlbums.map(album =>
                     <a className={"home-link"} href={`/details/${album.id}`}>
                       <img src={album.image} className={"home-image"}/>

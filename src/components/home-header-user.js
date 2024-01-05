@@ -12,6 +12,7 @@ const HomeHeaderUser = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(findLikedReviewsThunk());
+    // eslint-disable-next-line
   }, []);
 
   return (
@@ -29,6 +30,7 @@ const HomeHeaderUser = () => {
             </div>
             <div className="d-flex justify-content-center">
               {
+                // eslint-disable-next-line
                 userAlbums.map(album =>
                     <a className={"home-link"} href={`/details/${album.id}`}>
                       <img src={album.image} className={"home-image"}/>

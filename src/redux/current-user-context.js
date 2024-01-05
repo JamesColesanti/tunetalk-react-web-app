@@ -9,6 +9,7 @@ function CurrentUserContext({ children }) {
   };
   useEffect(() => {
     getProfile();
+    // eslint-disable-next-line
   }, []);
 
   return children;
