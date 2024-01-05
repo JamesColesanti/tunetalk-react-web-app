@@ -30,7 +30,7 @@ const persistConfig = {
   storage,
 }
  
-const persistedReducer = persistReducer(persistConfig, {
+const persistedReducer = persistReducer(persistConfig, {reducer: {
   albums: albumsReducer,
   currentUser: currentUserReducer,
   reviews: reviewReducer,
@@ -39,6 +39,7 @@ const persistedReducer = persistReducer(persistConfig, {
   reviewsForUser: reviewsForUserReducer,
   allUsers: allUsersReducer,
   user: userReducer
+}
 });
 
 const store = configureStore({reducer: persistedReducer});
