@@ -21,21 +21,33 @@ import AdminScreen from "./pages/admin-page";
 import reviewsForUserReducer from "./reviews/reviews-for-user-reducer";
 import userReducer from "./users/user-reducer";
 import UserProfilePage from "./pages/user-profile-page";
+import { persistStore, persistReducer } from 'redux-persist'
+import storage from 'redux-persist/lib/storage' // defaults to localStorage for web
+import { PersistGate } from 'redux-persist/integration/react'
 
-const store = configureStore({reducer: {
-    albums: albumsReducer,
-    currentUser: currentUserReducer,
-    reviews: reviewReducer,
-    albumDetail: albumDetailsReducer,
-    reviewsForAlbum: reviewsForAlbumReducer,
-    reviewsForUser: reviewsForUserReducer,
-    allUsers: allUsersReducer,
-    user: userReducer
-}});
+const persistConfig = {
+  key: 'root',
+  storage,
+}
+ 
+const persistedReducer = persistReducer(persistConfig, {
+  albums: albumsReducer,
+  currentUser: currentUserReducer,
+  reviews: reviewReducer,
+  albumDetail: albumDetailsReducer,
+  reviewsForAlbum: reviewsForAlbumReducer,
+  reviewsForUser: reviewsForUserReducer,
+  allUsers: allUsersReducer,
+  user: userReducer
+});
+
+const store = configureStore(persistedReducer);
+let persistor = persistStore(store);
 
 function App() {
   return (
     <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
       <CurrentUserContext>
         <BrowserRouter>
           <Navbar/>
@@ -51,6 +63,7 @@ function App() {
           </Routes>
         </BrowserRouter>
       </CurrentUserContext>
+      </PersistGate>
     </Provider>
   );
 }
