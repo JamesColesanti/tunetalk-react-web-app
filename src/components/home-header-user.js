@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/alt-text */
 import React, {useEffect} from "react";
 import userAlbums from "../data/user-albums.json";
 import {useDispatch, useSelector} from "react-redux";

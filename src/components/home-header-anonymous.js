@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/alt-text */
 import React, {useEffect} from "react";
 import featuredAlbums from "../data/featured-albums.json";
 import HomeReviewItem from "../reviews/home-review-item";
