@@ -5,7 +5,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {
   findTop5ReviewsThunk
 } from "../services/reviews-thunks";
-x
+
 const HomeHeaderAnonymous = () => {
   const {reviews, loading} = useSelector((state) => state.reviews)
   const dispatch = useDispatch();
