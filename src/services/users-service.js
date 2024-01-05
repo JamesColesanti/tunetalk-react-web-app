@@ -1,5 +1,6 @@
 import axios from "axios";
-const USERS_REST_API_URL = "http://localhost:4000/api/users";
+const API_BASE = process.env.TUNETALK_SERVER_API_BASE || "http://localhost:4000/api";
+const USERS_REST_API_URL = `${API_BASE}/users`;
 
 const api = axios.create({
   withCredentials: true,
