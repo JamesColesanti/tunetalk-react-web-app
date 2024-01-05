@@ -41,7 +41,7 @@ const persistedReducer = persistReducer(persistConfig, {
   user: userReducer
 });
 
-const store = configureStore(persistedReducer);
+const store = configureStore({reducer: persistedReducer});
 let persistor = persistStore(store);
 
 function App() {
