@@ -12,10 +12,9 @@ const HomeHeaderAnonymous = () => {
   console.log(reviews);
   const dispatch = useDispatch();
   useEffect(() => {
+    console.log('here');
     dispatch(findTop5ReviewsThunk());
-    // eslint-disable-next-line
-  }, []);
-
+  }, [dispatch]);
 
   return (
       <>
