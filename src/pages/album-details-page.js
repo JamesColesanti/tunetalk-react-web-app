@@ -17,7 +17,7 @@ function AlbumDetailsPage () {
     useEffect(() => {
         dispatch(findAlbumDetailsThunk(albumId));
         dispatch(findReviewsForAlbumThunk(albumId));
-    }, [dispatch, albumId]);
+    }, [dispatch, albumId, currentUser]);
 
     if (aLoading || !albumDetail.albumInfo || !albumDetail.tracks) {
         return <div className={"container m-4"}><h1>Loading...</h1></div>;
