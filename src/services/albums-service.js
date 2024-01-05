@@ -1,6 +1,4 @@
 import axios from 'axios';
-// const API_BASE = "http://localhost:4000/api";
-// const REVIEWS_API = `${API_BASE}/reviews`;
 
 export const findAlbums = async (searchTerm) => {
 
@@ -31,37 +29,6 @@ export const findAlbums = async (searchTerm) => {
         }
     );
     return response.data.albums.items;
-
-    // might want to catch 400 errors at some point
-
-    // await axios.get(url,
-    //     {
-    //         headers: {
-    //             Authorization: "Bearer " + access_token,
-    //         },
-    //     }
-    // ).then(
-    //     function (response) {
-    //       return response.data.albums.items
-    //     }
-    //   ).catch(
-    //     function (error) {
-    //       return []
-    //     }
-    //   )
-    // try {
-    //     const response = await axios.get(url,
-    //         {
-    //             headers: {
-    //                 Authorization: "Bearer " + access_token,
-    //             },
-    //         }
-    //     );
-    
-    //     return response.data.albums.items;
-    // } catch (err) {
-    //     return [];
-    // }
 }
 
 export const findAlbumById = async (albumId) => {

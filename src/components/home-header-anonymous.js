@@ -8,7 +8,8 @@ import {
 } from "../services/reviews-thunks";
 
 const HomeHeaderAnonymous = () => {
-  const {reviews, loading} = useSelector((state) => state.reviews)
+  const {reviews, loading} = useSelector((state) => state.reviews);
+  console.log(reviews);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(findTop5ReviewsThunk());
