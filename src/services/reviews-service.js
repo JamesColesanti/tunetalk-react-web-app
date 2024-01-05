@@ -2,6 +2,7 @@ import axios from 'axios';
 const API_BASE = process.env.TUNETALK_SERVER_API_BASE || "http://localhost:4000/api";
 
 export const findTop5Reviews = async () => {
+    console.log(API_BASE);
     const response = await axios.get(`${API_BASE}/topReviews`);
     const reviews = response.data;
     return reviews;
@@ -14,6 +15,7 @@ export const findLikedReviews = async () => {
 }
 
 export const findReviewsForAlbum = async (aid) => {
+    console.log(API_BASE);
     const response = await axios.get(`${API_BASE}/albums/${aid}/reviews`);
     const reviews = response.data;
     return reviews;
